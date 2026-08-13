@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { GalleryLightbox } from "@/components/public/GalleryLightbox";
-import { PLACEHOLDERS, resolveImageAlt, resolveImagePath } from "@/lib/images";
+import { resolveGalleryImage, resolveImageAlt } from "@/lib/images";
 import type { GalleryImageDocument } from "@/types";
 
 interface GalleryGridProps {
@@ -24,7 +24,7 @@ export function GalleryGrid({ images, columns = 3 }: GalleryGridProps) {
     <>
       <div className={`grid gap-4 ${columnClass}`}>
         {images.map((item, index) => {
-          const src = resolveImagePath(item.image, PLACEHOLDERS.gallery);
+          const src = resolveGalleryImage(item, index);
 
           return (
             <button

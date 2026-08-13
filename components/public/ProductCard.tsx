@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { formatPrice, PLACEHOLDERS, resolveImageAlt, resolveImagePath } from "@/lib/images";
+import { formatPrice, resolveImageAlt, resolveProductImage } from "@/lib/images";
 import type { ProductDocument } from "@/types";
 
 interface ProductCardProps {
@@ -9,7 +9,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const image = product.images?.[0];
-  const src = resolveImagePath(image, PLACEHOLDERS.product);
+  const src = resolveProductImage(product);
 
   return (
     <Link

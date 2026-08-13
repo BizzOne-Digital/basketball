@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { SocialLinks } from "@/components/public/SocialLinks";
-import { HEADER_NAV_LINKS } from "@/lib/navigation";
+import { ALL_NAV_LINKS } from "@/lib/navigation";
 import { cn } from "@/lib/utils/cn";
 import type { SiteSettingsDocument } from "@/types";
 
@@ -22,25 +22,25 @@ export function MobileMenu({ open, onClose, settings }: MobileMenuProps) {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[60] bg-midnight/95 backdrop-blur-xl xl:hidden"
+          className="fixed inset-0 z-[60] overflow-y-auto bg-midnight/95 backdrop-blur-xl xl:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <div className="flex h-full flex-col px-6 py-24">
-            <nav className="flex flex-col gap-4" aria-label="Mobile">
-              {HEADER_NAV_LINKS.map((link, index) => (
+          <div className="flex min-h-full flex-col px-6 py-24">
+            <nav className="flex flex-col gap-3" aria-label="Mobile">
+              {ALL_NAV_LINKS.map((link, index) => (
                 <motion.div
                   key={link.href}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.04 }}
+                  transition={{ delay: index * 0.02 }}
                 >
                   <Link
                     href={link.href}
                     onClick={onClose}
                     className={cn(
-                      "font-display text-3xl uppercase tracking-[0.12em]",
+                      "font-display text-2xl uppercase tracking-[0.1em]",
                       pathname === link.href
                         ? "text-ice-blue"
                         : "text-mountie-white",
@@ -52,9 +52,9 @@ export function MobileMenu({ open, onClose, settings }: MobileMenuProps) {
               ))}
             </nav>
 
-            <div className="mt-auto space-y-6">
-              <MagneticButton href="/contact" variant="primary">
-                Contact Us
+            <div className="mt-auto space-y-6 pt-10">
+              <MagneticButton href="/support" variant="primary">
+                Support The Program
               </MagneticButton>
               <SocialLinks links={settings.socialLinks} />
             </div>

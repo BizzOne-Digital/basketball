@@ -34,8 +34,9 @@ export function ImageReveal({
           alt={alt}
           width={width}
           height={height}
-          fill={fill}
+          fill={fill ?? true}
           priority={priority}
+          sizes={priority ? "100vw" : undefined}
           className="object-cover"
         />
       </div>

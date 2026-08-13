@@ -10,9 +10,9 @@ import { buildMetadataFromSeo } from "@/lib/seo/metadata";
 import { buildProductJsonLd } from "@/lib/seo/jsonld";
 import {
   formatPrice,
-  PLACEHOLDERS,
   resolveImageAlt,
   resolveImagePath,
+  resolveProductImage,
 } from "@/lib/images";
 
 interface ProductDetailPageProps {
@@ -57,13 +57,13 @@ export default async function ProductDetailPage({
   const images =
     product.images && product.images.length > 0
       ? product.images
-      : [{ path: PLACEHOLDERS.product, alt: product.name }];
+      : [{ path: resolveProductImage(product), alt: product.name }];
 
   const jsonLd = buildProductJsonLd({
     name: product.name,
     description: product.description,
     path: `/shop/${product.slug}`,
-    image: resolveImagePath(images[0]),
+    image: resolveProductImage(product),
     price: product.price,
     sku: product.sku,
   });
@@ -96,7 +96,7 @@ export default async function ProductDetailPage({
                   }`}
                 >
                   <Image
-                    src={resolveImagePath(image, PLACEHOLDERS.product)}
+                    src={resolveImagePath(image, resolveProductImage(product))}
                     alt={resolveImageAlt(image, product.name)}
                     fill
                     className="object-cover"

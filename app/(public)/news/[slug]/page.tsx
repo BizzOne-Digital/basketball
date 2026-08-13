@@ -10,7 +10,7 @@ import { buildArticleJsonLd } from "@/lib/seo/jsonld";
 import {
   formatDate,
   resolveImageAlt,
-  resolveImagePath,
+  resolveNewsImage,
 } from "@/lib/images";
 
 interface NewsDetailPageProps {
@@ -50,7 +50,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     notFound();
   }
 
-  const coverSrc = resolveImagePath(post.coverImage, "/images/Blog-1.png");
+  const coverSrc = resolveNewsImage(post);
   const jsonLd = buildArticleJsonLd({
     title: post.title,
     description: post.excerpt,

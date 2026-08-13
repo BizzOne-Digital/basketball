@@ -15,7 +15,10 @@ import {
   Testimonial,
 } from "@/models";
 import type { ImageObject, PageSection } from "@/types";
-import { imageObject, SITE_IMAGES } from "@/lib/images";
+import { galleryImageObject, imageObject, SITE_IMAGES } from "@/lib/images";
+import { COACHING_STAFF } from "@/lib/content/mountie-program";
+
+const COACHING_STAFF_FROM_CONTENT = COACHING_STAFF;
 
 const MONGODB_URI =
   process.env.MONGODB_URI ?? "mongodb://127.0.0.1:27017/mountie-basketball";
@@ -37,9 +40,7 @@ const TEAM_1 = imageObject(SITE_IMAGES.team[0], "Head Coach Tj Anderson");
 const TEAM_2 = imageObject(SITE_IMAGES.team[1], "Mountie Basketball coaching staff");
 const TEAM_3 = imageObject(SITE_IMAGES.team[2], "Mountie Basketball team");
 
-const GALLERY = SITE_IMAGES.gallery.map((path, index) =>
-  imageObject(path, `Mountie Basketball gallery photo ${index + 1}`),
-);
+const GALLERY = Array.from({ length: 10 }, (_, index) => galleryImageObject(index));
 
 function section(partial: Omit<PageSection, "enabled"> & { enabled?: boolean }): PageSection {
   return { ...partial, enabled: partial.enabled ?? true };
@@ -109,31 +110,31 @@ async function seedSettings() {
       tagline: "ONE TEAM. ONE GOAL. ONE PURPOSE.",
       logo: LOGO,
       coach: {
-        name: "Tj Anderson",
-        title: "Head Coach",
+        name: "Mark Nartatez",
+        title: "Coach",
         email: "Tjandersty@gmail.com",
         phone: "814-500-8613",
-        bio: "Leading the Mounties with a focus on discipline, development, and community.",
+        bio: "Leading the Mountaineer Basketball program with discipline, development, and community.",
         photo: TEAM_1,
       },
       contactEmail: "Tjandersty@gmail.com",
       contactPhone: "814-500-8613",
       address: "Philipsburg-Osceola Area School District, Central Pennsylvania",
       socialLinks: {
-        instagram: "https://instagram.com/mountie_basketball_",
-        facebook: "https://facebook.com/Philipsburg-Osceola Mountaineer Basketball",
+        instagram: "https://instagram.com/mountie_basketball_v",
+        facebook: "https://www.facebook.com/",
         twitter: "https://twitter.com/PoBasketball",
       },
       announcementBar: {
         enabled: true,
-        message: "Youth Basketball Camp registration opens soon — contact Coach Anderson for details.",
-        linkUrl: "/contact",
-        linkLabel: "Contact Coach",
+        message: "Follow the Mounties on MaxPreps for schedule, wins, and results.",
+        linkUrl: "/schedule",
+        linkLabel: "View Schedule",
       },
       defaultSeo: {
-        title: "Philipsburg-Osceola Mountie Basketball",
+        title: "Philipsburg-Osceola Mountaineer Basketball",
         description:
-          "Official home of Philipsburg-Osceola Mountie Basketball — youth camps, training, news, and community.",
+          "Official home of Philipsburg-Osceola Mountaineer Basketball — schedule, roster, coaching staff, alumni, and program support.",
         ogImage: LOGO,
       },
       footerText:
@@ -175,7 +176,7 @@ async function seedPages() {
           heading: "Central Pennsylvania Basketball Excellence",
           body: "We are a public-school high school basketball program located in Central Pennsylvania. Our mission is to develop complete athletes through teamwork, discipline, and community.",
           image: HOME_INTRO,
-          imagePosition: "right",
+          imagePosition: "left",
         }),
         section({
           id: "home-values",
@@ -506,6 +507,7 @@ async function seedGallery() {
     { slug: "game-day-1", categorySlug: "game-day", title: "Game Day Action", image: GALLERY[0] },
     { slug: "game-day-2", categorySlug: "game-day", title: "Game Day Energy", image: GALLERY[1] },
     { slug: "game-day-3", categorySlug: "game-day", title: "Court Focus", image: GALLERY[2] },
+    { slug: "game-day-4", categorySlug: "game-day", title: "Championship Spirit", image: GALLERY[9] },
     { slug: "practice-1", categorySlug: "practice", title: "Training Session", image: GALLERY[3] },
     { slug: "practice-2", categorySlug: "practice", title: "Skill Work", image: GALLERY[4] },
     { slug: "practice-3", categorySlug: "practice", title: "Practice Intensity", image: GALLERY[5] },
@@ -701,34 +703,17 @@ async function seedNews() {
 }
 
 async function seedTeam() {
-  const members = [
-    {
-      slug: "tj-anderson",
-      name: "Tj Anderson",
-      role: "Head Coach",
-      bio: "Head Coach of Philipsburg-Osceola Mountie Basketball, focused on player development, discipline, and community.",
-      photo: TEAM_1,
-      email: "Tjandersty@gmail.com",
-      phone: "814-500-8613",
-      order: 0,
-    },
-    {
-      slug: "mountie-staff-2",
-      name: "Mountie Coaching Staff",
-      role: "Assistant Coach",
-      bio: "Supporting player development and competitive readiness across Mountie Basketball programs.",
-      photo: TEAM_2,
-      order: 1,
-    },
-    {
-      slug: "mountie-staff-3",
-      name: "Mountie Basketball Team",
-      role: "Program Staff",
-      bio: "Dedicated to building complete athletes and a connected Mountie community.",
-      photo: TEAM_3,
-      order: 2,
-    },
-  ];
+  const members = COACHING_STAFF_FROM_CONTENT.map((member, index) => ({
+    slug: member.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    name: member.name,
+    role: member.role,
+    bio: `${member.name} — ${member.role} for Philipsburg-Osceola Mountaineer Basketball.`,
+    photo: imageObject(
+      SITE_IMAGES.team[index % SITE_IMAGES.team.length],
+      member.name,
+    ),
+    order: index,
+  }));
 
   for (const member of members) {
     await TeamMember.findOneAndUpdate(

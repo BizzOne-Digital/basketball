@@ -12,7 +12,11 @@ import {
 } from "@/lib/data/gallery";
 import { getPublishedPageByKey } from "@/lib/data/pages";
 import { getPublicPageMetadata } from "@/lib/seo/page";
-import { PLACEHOLDERS, resolveImagePath } from "@/lib/images";
+import {
+  getGalleryImageByIndex,
+  resolveGalleryHeroImage,
+  resolveGalleryImage,
+} from "@/lib/images";
 
 export async function generateMetadata(): Promise<Metadata> {
   return getPublicPageMetadata(
@@ -38,6 +42,13 @@ export default async function GalleryPage() {
   );
 
   const images = allImages.length > 0 ? allImages : [];
+  const heroSection = page?.sections[0];
+  const heroImage = heroSection?.image
+    ? {
+        ...heroSection.image,
+        path: resolveGalleryHeroImage(heroSection.image),
+      }
+    : { path: getGalleryImageByIndex(0), alt: "Mountie Basketball gallery" };
 
   return (
     <>
@@ -48,7 +59,7 @@ export default async function GalleryPage() {
           { label: "Home", href: "/" },
           { label: "Gallery" },
         ]}
-        image={page?.sections[0]?.image}
+        image={heroImage}
       />
 
       <section className="py-20">
@@ -61,7 +72,7 @@ export default async function GalleryPage() {
         </div>
       </section>
 
-      {categorySections.map(({ category, images: categoryImages }) =>
+      {categorySections.map(({ category, images: categoryImages }, categoryIndex) =>
         categoryImages.length > 0 ? (
           <section key={category.slug} className="pb-16">
             <div className="mx-auto max-w-7xl px-4 lg:px-8">
@@ -75,7 +86,10 @@ export default async function GalleryPage() {
               {category.coverImage ? (
                 <div className="relative mt-8 aspect-[21/9] overflow-hidden rounded-3xl">
                   <Image
-                    src={resolveImagePath(category.coverImage, PLACEHOLDERS.gallery)}
+                    src={resolveGalleryImage(
+                      { slug: category.slug, image: category.coverImage },
+                      categoryIndex * 3,
+                    )}
                     alt={category.name}
                     fill
                     className="object-cover"

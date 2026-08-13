@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { formatDate, PLACEHOLDERS, resolveImageAlt, resolveImagePath } from "@/lib/images";
+import { formatDate, resolveImageAlt, resolveNewsImage } from "@/lib/images";
 import type { BlogPostDocument } from "@/types";
 
 interface NewsCardProps {
@@ -9,7 +9,7 @@ interface NewsCardProps {
 }
 
 export function NewsCard({ post, featured }: NewsCardProps) {
-  const src = resolveImagePath(post.coverImage, PLACEHOLDERS.news);
+  const src = resolveNewsImage(post);
 
   return (
     <Link

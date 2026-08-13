@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { PLACEHOLDERS, resolveImageAlt, resolveImagePath } from "@/lib/images";
+import { resolveImageAlt, resolveProgramCardImage } from "@/lib/images";
 import type { ServiceDocument } from "@/types";
 
 interface ProgramCardProps {
@@ -9,7 +9,7 @@ interface ProgramCardProps {
 }
 
 export function ProgramCard({ service }: ProgramCardProps) {
-  const src = resolveImagePath(service.cardImage, PLACEHOLDERS.service);
+  const src = resolveProgramCardImage(service);
 
   return (
     <Link

@@ -11,7 +11,7 @@ import { MagneticButton } from "@/components/motion/MagneticButton";
 import { getPublishedFAQs } from "@/lib/data/faqs";
 import { getFeaturedImages } from "@/lib/data/gallery";
 import { getPublishedTestimonials } from "@/lib/data/testimonials";
-import { HOME_INTRO_IMAGE, PLACEHOLDERS, resolveImageAlt, resolveImagePath } from "@/lib/images";
+import { PLACEHOLDERS, resolveImageAlt, resolveImagePath, resolveSectionImage } from "@/lib/images";
 import { cn } from "@/lib/utils/cn";
 import type { PageSection } from "@/types";
 
@@ -152,21 +152,24 @@ function HeroSection({ section }: { section: PageSection }) {
 }
 
 function TextImageSection({ section }: { section: PageSection }) {
-  const imageLeft = section.imagePosition !== "right";
-  const src =
-    section.id === "home-intro"
-      ? HOME_INTRO_IMAGE
-      : resolveImagePath(section.image, PLACEHOLDERS.court);
+  const imageOnRight = section.imagePosition === "right";
+  const src = resolveSectionImage(section);
   const imageAspect =
     section.id === "home-intro" ? "aspect-[16/10]" : "aspect-[4/5]";
   const secondary = section.secondaryImage
     ? resolveImagePath(section.secondaryImage, PLACEHOLDERS.team)
     : null;
+  const isHomeIntro = section.id === "home-intro";
 
   return (
     <section className={cn("py-20", themeClasses(section.theme))}>
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 lg:grid-cols-2 lg:px-8">
-        <SectionReveal className={cn(!imageLeft && "lg:order-2")}>
+        <SectionReveal
+          className={cn(
+            "min-w-0",
+            imageOnRight ? "lg:order-1" : "lg:order-2",
+          )}
+        >
           <SectionHeading
             eyebrow={section.eyebrow}
             title={section.heading ?? ""}
@@ -180,16 +183,24 @@ function TextImageSection({ section }: { section: PageSection }) {
             </div>
           ) : null}
         </SectionReveal>
-        <div className={cn("grid gap-4", secondary && "sm:grid-cols-2")}>
+        <div
+          className={cn(
+            "min-w-0 w-full",
+            imageOnRight ? "lg:order-2" : "lg:order-1",
+            secondary && "grid gap-4 sm:grid-cols-2",
+          )}
+        >
           <ImageReveal
             src={src}
             alt={resolveImageAlt(
               section.image,
-              section.id === "home-intro"
+              isHomeIntro
                 ? "Mountie Basketball team huddle on court"
                 : (section.heading ?? "Section"),
             )}
-            className={cn(imageAspect, "rounded-3xl")}
+            className={cn(imageAspect, "rounded-3xl border border-white/10")}
+            fill
+            priority={isHomeIntro}
           />
           {secondary ? (
             <ImageReveal
@@ -198,7 +209,8 @@ function TextImageSection({ section }: { section: PageSection }) {
                 section.secondaryImage,
                 section.heading ?? "Section",
               )}
-              className="aspect-[4/5] rounded-3xl"
+              className="aspect-[4/5] rounded-3xl border border-white/10"
+              fill
             />
           ) : null}
         </div>

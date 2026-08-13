@@ -49,11 +49,123 @@ export function resolveImagePath(
     ? image.path
     : `/${image.path}`;
 
-  if (normalized.startsWith("/uploads/")) {
+  if (
+    normalized.startsWith("/uploads/") ||
+    normalized.includes("/images/placeholders/")
+  ) {
     return fallback;
   }
 
   return normalized;
+}
+
+export function resolveProgramImage(service: {
+  slug: string;
+  cardImage?: ImageObject | null;
+  hero?: { image?: ImageObject | null } | null;
+}): string {
+  const slugFallback: Record<string, string> = {
+    "annual-youth-basketball-camp": SITE_IMAGES.programs[0],
+    "youth-basketball-training-and-development": SITE_IMAGES.programs[1],
+  };
+
+  const fallback = slugFallback[service.slug] ?? SITE_IMAGES.programs[0];
+  const image = service.hero?.image ?? service.cardImage;
+  return resolveImagePath(image, fallback);
+}
+
+export function resolveProgramCardImage(service: {
+  slug: string;
+  cardImage?: ImageObject | null;
+}): string {
+  const slugFallback: Record<string, string> = {
+    "annual-youth-basketball-camp": SITE_IMAGES.programs[0],
+    "youth-basketball-training-and-development": SITE_IMAGES.programs[1],
+  };
+
+  return resolveImagePath(
+    service.cardImage,
+    slugFallback[service.slug] ?? SITE_IMAGES.programs[0],
+  );
+}
+
+export function resolveNewsImage(post: {
+  slug: string;
+  coverImage?: ImageObject | null;
+}): string {
+  const slugFallback: Record<string, string> = {
+    "welcome-to-mountie-basketball": SITE_IMAGES.blog[0],
+    "youth-camp-information": SITE_IMAGES.blog[1],
+  };
+
+  return resolveImagePath(post.coverImage, slugFallback[post.slug] ?? SITE_IMAGES.blog[0]);
+}
+
+export function getGalleryImageByIndex(index: number): string {
+  const images = SITE_IMAGES.gallery;
+  return images[((index % images.length) + images.length) % images.length];
+}
+
+export function galleryImageObject(index: number, alt?: string): ImageObject {
+  return imageObject(
+    getGalleryImageByIndex(index),
+    alt ?? `Mountie Basketball gallery photo ${index + 1}`,
+  );
+}
+
+export function resolveGalleryImage(
+  item: { slug: string; image?: ImageObject | null },
+  index = 0,
+): string {
+  return resolveImagePath(item.image, getGalleryImageByIndex(index));
+}
+
+export function resolveGalleryHeroImage(image?: ImageObject | null): string {
+  return resolveImagePath(image, SITE_IMAGES.gallery[0]);
+}
+
+export function resolveProductImage(product: {
+  slug: string;
+  images?: ImageObject[] | null;
+}): string {
+  const slugFallback: Record<string, string> = {
+    "mountie-practice-tee": SITE_IMAGES.shop[0],
+    "mountie-hoodie": SITE_IMAGES.shop[1],
+  };
+
+  const image = product.images?.[0];
+  return resolveImagePath(image, slugFallback[product.slug] ?? SITE_IMAGES.shop[0]);
+}
+
+export function resolveTeamMemberImage(member: {
+  slug: string;
+  photo?: ImageObject | null;
+}): string {
+  const slugFallback: Record<string, string> = {
+    "tj-anderson": SITE_IMAGES.team[0],
+    "mountie-staff-2": SITE_IMAGES.team[1],
+    "mountie-staff-3": SITE_IMAGES.team[2],
+  };
+
+  return resolveImagePath(
+    member.photo,
+    slugFallback[member.slug] ?? SITE_IMAGES.team[0],
+  );
+}
+
+export function resolveSectionImage(section: {
+  id: string;
+  image?: ImageObject | null;
+}): string {
+  const sectionFallback: Record<string, string> = {
+    "home-intro": HOME_INTRO_IMAGE,
+    "team-philosophy": SITE_IMAGES.team[1],
+  };
+
+  return resolveImagePath(
+    section.image,
+    sectionFallback[section.id] ?? PLACEHOLDERS.court,
+  );
 }
 
 export function resolveImageAlt(

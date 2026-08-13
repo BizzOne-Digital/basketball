@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { PLACEHOLDERS, resolveImageAlt, resolveImagePath } from "@/lib/images";
+import { resolveGalleryImage, resolveImageAlt } from "@/lib/images";
 import type { GalleryImageDocument } from "@/types";
 
 interface GalleryLightboxProps {
@@ -60,7 +60,7 @@ export function GalleryLightbox({
 
           <div className="relative h-[70vh] w-full max-w-5xl">
             <Image
-              src={resolveImagePath(active.image, PLACEHOLDERS.gallery)}
+              src={resolveGalleryImage(active, activeIndex ?? 0)}
               alt={resolveImageAlt(active.image, active.title ?? "Gallery image")}
               fill
               className="object-contain"

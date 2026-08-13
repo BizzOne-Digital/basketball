@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Logo } from "@/components/public/Logo";
 import { MobileMenu } from "@/components/public/MobileMenu";
 import { MagneticButton } from "@/components/motion/MagneticButton";
-import { HEADER_NAV_LINKS } from "@/lib/navigation";
+import { HEADER_MORE_LINKS, HEADER_NAV_LINKS } from "@/lib/navigation";
 import { cn } from "@/lib/utils/cn";
 import type { SiteSettingsDocument } from "@/types";
 
@@ -18,6 +18,9 @@ interface HeaderProps {
 export function Header({ settings }: HeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
+
+  const isMoreActive = HEADER_MORE_LINKS.some((link) => pathname === link.href);
 
   return (
     <>
@@ -31,13 +34,13 @@ export function Header({ settings }: HeaderProps) {
             className="min-w-0 shrink"
           />
 
-          <nav className="hidden items-center gap-6 xl:flex" aria-label="Main">
+          <nav className="hidden items-center gap-4 xl:flex" aria-label="Main">
             {HEADER_NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-xs font-semibold uppercase tracking-[0.16em] transition-colors hover:text-ice-blue",
+                  "text-xs font-semibold uppercase tracking-[0.14em] transition-colors hover:text-ice-blue",
                   pathname === link.href
                     ? "text-ice-blue"
                     : "text-mountie-silver",
@@ -46,12 +49,49 @@ export function Header({ settings }: HeaderProps) {
                 {link.label}
               </Link>
             ))}
+
+            <div
+              className="relative"
+              onMouseEnter={() => setMoreOpen(true)}
+              onMouseLeave={() => setMoreOpen(false)}
+            >
+              <button
+                type="button"
+                className={cn(
+                  "inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] transition-colors hover:text-ice-blue",
+                  isMoreActive ? "text-ice-blue" : "text-mountie-silver",
+                )}
+                aria-expanded={moreOpen}
+                onClick={() => setMoreOpen((value) => !value)}
+              >
+                More
+                <ChevronDown size={14} className={cn(moreOpen && "rotate-180")} />
+              </button>
+              {moreOpen ? (
+                <div className="absolute right-0 top-full z-50 mt-2 min-w-[220px] rounded-2xl border border-white/10 bg-midnight p-2 shadow-xl">
+                  {HEADER_MORE_LINKS.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        "block rounded-xl px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] transition-colors hover:bg-white/5 hover:text-ice-blue",
+                        pathname === link.href
+                          ? "text-ice-blue"
+                          : "text-mountie-silver",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </nav>
 
           <div className="flex items-center gap-3">
             <div className="hidden md:block">
-              <MagneticButton href="/contact" variant="primary">
-                Join Us
+              <MagneticButton href="/support" variant="primary">
+                Support
               </MagneticButton>
             </div>
             <button

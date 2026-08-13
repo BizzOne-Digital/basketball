@@ -8,7 +8,7 @@ import { RichTextRenderer } from "@/components/public/RichTextRenderer";
 import { getServiceBySlug, getPublishedServices } from "@/lib/data/services";
 import { getSiteSettings } from "@/lib/data/settings";
 import { buildMetadataFromSeo } from "@/lib/seo/metadata";
-import { PLACEHOLDERS, resolveImageAlt, resolveImagePath } from "@/lib/images";
+import { PLACEHOLDERS, resolveImageAlt, resolveImagePath, resolveProgramImage } from "@/lib/images";
 
 interface ServiceDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -50,7 +50,7 @@ export default async function ServiceDetailPage({
   }
 
   const heroImage = service.hero?.image ?? service.cardImage;
-  const heroSrc = resolveImagePath(heroImage, PLACEHOLDERS.service);
+  const heroSrc = resolveProgramImage(service);
 
   return (
     <>

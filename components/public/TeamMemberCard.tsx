@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
-import { PLACEHOLDERS, resolveImageAlt, resolveImagePath } from "@/lib/images";
+import { resolveImageAlt, resolveTeamMemberImage } from "@/lib/images";
 import type { TeamMemberDocument } from "@/types";
 
 interface TeamMemberCardProps {
@@ -8,7 +8,7 @@ interface TeamMemberCardProps {
 }
 
 export function TeamMemberCard({ member }: TeamMemberCardProps) {
-  const src = resolveImagePath(member.photo, PLACEHOLDERS.team);
+  const src = resolveTeamMemberImage(member);
 
   return (
     <article className="overflow-hidden rounded-2xl border border-white/10 bg-gunmetal/30">
