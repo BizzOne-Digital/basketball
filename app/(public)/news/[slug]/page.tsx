@@ -9,7 +9,6 @@ import { buildMetadataFromSeo } from "@/lib/seo/metadata";
 import { buildArticleJsonLd } from "@/lib/seo/jsonld";
 import {
   formatDate,
-  PLACEHOLDERS,
   resolveImageAlt,
   resolveImagePath,
 } from "@/lib/images";
@@ -51,7 +50,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
     notFound();
   }
 
-  const coverSrc = resolveImagePath(post.coverImage, PLACEHOLDERS.news);
+  const coverSrc = resolveImagePath(post.coverImage, "/images/Blog-1.png");
   const jsonLd = buildArticleJsonLd({
     title: post.title,
     description: post.excerpt,
@@ -111,18 +110,6 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
               </p>
             ) : null}
             <RichTextRenderer html={post.content} />
-          </div>
-        </section>
-
-        <section className="pb-24">
-          <div className="mx-auto grid max-w-4xl gap-4 px-4 sm:grid-cols-2 lg:px-8">
-            {[PLACEHOLDERS.gallery, PLACEHOLDERS.court, PLACEHOLDERS.team, PLACEHOLDERS.hero].map(
-              (src, index) => (
-                <div key={src} className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-                  <Image src={src} alt={`Article image ${index + 1}`} fill className="object-cover" />
-                </div>
-              ),
-            )}
           </div>
         </section>
       </article>

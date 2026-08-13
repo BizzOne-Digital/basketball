@@ -15,16 +15,9 @@ import { SectionHeading } from "@/components/public/SectionHeading";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";
 import { SectionReveal } from "@/components/motion/SectionReveal";
 import { SplitTextHeading } from "@/components/public/SplitTextHeading";
-import { HOME_INTRO_IMAGE, PLACEHOLDERS } from "@/lib/images";
+import { HOME_INTRO_IMAGE, PLACEHOLDERS, SITE_IMAGES } from "@/lib/images";
 import { cn } from "@/lib/utils/cn";
 import type { PageDocument, PageSection, SiteSettingsDocument } from "@/types";
-
-const ABOUT_COMMUNITY_IMAGES = [
-  HOME_INTRO_IMAGE,
-  PLACEHOLDERS.hero,
-  HOME_INTRO_IMAGE,
-  PLACEHOLDERS.hero,
-] as const;
 
 const VALUES = [
   {
@@ -313,7 +306,7 @@ export function AboutPageContent({ page, settings }: AboutPageContentProps) {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 lg:grid-cols-2 lg:px-8">
           <SectionReveal className={cn("order-2 lg:order-1")}>
             <ImageReveal
-              src={PLACEHOLDERS.hero}
+              src={SITE_IMAGES.programs[1]}
               alt="Basketball training on court"
               className="aspect-[4/5] rounded-3xl"
             />
@@ -337,39 +330,23 @@ export function AboutPageContent({ page, settings }: AboutPageContentProps) {
       </section>
 
       <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
-            <SectionReveal>
-              <SectionHeading
-                eyebrow={community?.eyebrow ?? "Community Connection"}
-                title={community?.heading ?? "More Than A Program"}
-              />
-              {community?.body ? (
-                <RichTextRenderer html={community.body} className="mt-6" />
-              ) : (
-                <p className="mt-6 text-base leading-8 text-mountie-silver">
-                  Mountie Basketball brings together students, parents, alumni,
-                  and supporters across Central Pennsylvania. We compete with
-                  pride and stay connected to the community that lifts us up.
-                </p>
-              )}
-            </SectionReveal>
-            <SectionReveal delay={0.1}>
-              <div className="grid grid-cols-2 gap-4">
-                {ABOUT_COMMUNITY_IMAGES.map((src, index) => (
-                    <div
-                      key={`about-community-${index}`}
-                      className={cn(
-                        "relative overflow-hidden rounded-2xl border border-white/10",
-                        index === 0 ? "col-span-2 aspect-[16/9]" : "aspect-square",
-                      )}
-                    >
-                      <Image src={src} alt={`Mountie community ${index + 1}`} fill className="object-cover" />
-                    </div>
-                  ))}
-              </div>
-            </SectionReveal>
-          </div>
+        <div className="mx-auto max-w-3xl px-4 text-center lg:px-8">
+          <SectionReveal>
+            <SectionHeading
+              eyebrow={community?.eyebrow ?? "Community Connection"}
+              title={community?.heading ?? "More Than A Program"}
+              align="center"
+            />
+            {community?.body ? (
+              <RichTextRenderer html={community.body} className="mt-6" />
+            ) : (
+              <p className="mt-6 text-base leading-8 text-mountie-silver">
+                Mountie Basketball brings together students, parents, alumni,
+                and supporters across Central Pennsylvania. We compete with
+                pride and stay connected to the community that lifts us up.
+              </p>
+            )}
+          </SectionReveal>
         </div>
       </section>
 

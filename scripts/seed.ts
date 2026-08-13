@@ -15,6 +15,7 @@ import {
   Testimonial,
 } from "@/models";
 import type { ImageObject, PageSection } from "@/types";
+import { imageObject, SITE_IMAGES } from "@/lib/images";
 
 const MONGODB_URI =
   process.env.MONGODB_URI ?? "mongodb://127.0.0.1:27017/mountie-basketball";
@@ -26,10 +27,19 @@ const LOGO: ImageObject = {
   height: 1200,
 };
 
-const PLACEHOLDER = (name: string, alt: string): ImageObject => ({
-  path: `/images/placeholders/${name}.svg`,
-  alt,
-});
+const PROGRAM_1 = imageObject(SITE_IMAGES.programs[0], "Mountie youth basketball camp");
+const PROGRAM_2 = imageObject(SITE_IMAGES.programs[1], "Mountie youth training session");
+const SHOP_1 = imageObject(SITE_IMAGES.shop[0], "Mountie practice tee");
+const SHOP_2 = imageObject(SITE_IMAGES.shop[1], "Mountie hoodie");
+const BLOG_1 = imageObject(SITE_IMAGES.blog[0], "Mountie Basketball announcement");
+const BLOG_2 = imageObject(SITE_IMAGES.blog[1], "Youth camp information");
+const TEAM_1 = imageObject(SITE_IMAGES.team[0], "Head Coach Tj Anderson");
+const TEAM_2 = imageObject(SITE_IMAGES.team[1], "Mountie Basketball coaching staff");
+const TEAM_3 = imageObject(SITE_IMAGES.team[2], "Mountie Basketball team");
+
+const GALLERY = SITE_IMAGES.gallery.map((path, index) =>
+  imageObject(path, `Mountie Basketball gallery photo ${index + 1}`),
+);
 
 function section(partial: Omit<PageSection, "enabled"> & { enabled?: boolean }): PageSection {
   return { ...partial, enabled: partial.enabled ?? true };
@@ -40,11 +50,13 @@ const HERO_BACKGROUND: ImageObject = {
   alt: "Mountaineer Basketball player on court at night",
 };
 
+const HOME_INTRO = imageObject("/images/home-intro.png", "Mountie Basketball team huddle on court");
+
 function heroSections(
   eyebrow: string,
   heading: string,
   subtitle: string,
-  bg = "hero",
+  image: ImageObject = HERO_BACKGROUND,
 ): PageSection[] {
   return [
     section({
@@ -54,10 +66,7 @@ function heroSections(
       eyebrow,
       heading,
       body: subtitle,
-      image:
-        bg === "hero"
-          ? HERO_BACKGROUND
-          : PLACEHOLDER(bg, heading),
+      image,
       imagePosition: "background",
       ctaLabel: "Explore the Program",
       ctaUrl: "/services",
@@ -105,7 +114,7 @@ async function seedSettings() {
         email: "Tjandersty@gmail.com",
         phone: "814-500-8613",
         bio: "Leading the Mounties with a focus on discipline, development, and community.",
-        photo: PLACEHOLDER("team", "Head Coach Tj Anderson"),
+        photo: TEAM_1,
       },
       contactEmail: "Tjandersty@gmail.com",
       contactPhone: "814-500-8613",
@@ -165,10 +174,7 @@ async function seedPages() {
           eyebrow: "Home of the Mounties",
           heading: "Central Pennsylvania Basketball Excellence",
           body: "We are a public-school high school basketball program located in Central Pennsylvania. Our mission is to develop complete athletes through teamwork, discipline, and community.",
-          image: {
-            path: "/images/home-intro.png",
-            alt: "Mountie Basketball team huddle on court",
-          },
+          image: HOME_INTRO,
           imagePosition: "right",
         }),
         section({
@@ -204,7 +210,7 @@ async function seedPages() {
       slug: "about",
       title: "About",
       sections: [
-        ...heroSections("About", "Who We Are", "Home of the Mounties.", "team"),
+        ...heroSections("About", "Who We Are", "Home of the Mounties.", TEAM_1),
         section({
           id: "about-story",
           sectionType: "text-image",
@@ -212,10 +218,7 @@ async function seedPages() {
           eyebrow: "Who We Are",
           heading: "Central Pennsylvania Basketball Excellence",
           body: "<p>Philipsburg-Osceola Mountie Basketball represents our community on the court and in the classroom. We build leaders through competitive basketball, character development, and a standard of excellence that extends into every part of a student-athlete's life.</p>",
-          image: {
-            path: "/images/home-intro.png",
-            alt: "Mountie Basketball team huddle",
-          },
+          image: HOME_INTRO,
           imagePosition: "right",
         }),
         section({
@@ -240,7 +243,7 @@ async function seedPages() {
           eyebrow: "Player Development",
           heading: "Elevate Every Athlete",
           body: "<p>From fundamentals and basketball IQ to competitive readiness, we meet athletes where they are and push them toward their potential with structure, honest feedback, and daily purpose.</p>",
-          image: PLACEHOLDER("court", "Mountie Basketball training"),
+          image: PROGRAM_2,
           imagePosition: "left",
         }),
         section({
@@ -276,7 +279,7 @@ async function seedPages() {
       slug: "services",
       title: "Programs",
       sections: [
-        ...heroSections("Programs", "Train With The Mounties", "Youth camps and development programs.", "service"),
+        ...heroSections("Programs", "Train With The Mounties", "Youth camps and development programs.", PROGRAM_1),
         section({
           id: "services-intro",
           sectionType: "text",
@@ -290,14 +293,14 @@ async function seedPages() {
       slug: "team",
       title: "Team",
       sections: [
-        ...heroSections("Team", "Coaching Staff & Roster", "Led by Head Coach Tj Anderson.", "team"),
+        ...heroSections("Team", "Coaching Staff & Roster", "Led by Head Coach Tj Anderson.", TEAM_1),
         section({
           id: "team-philosophy",
           sectionType: "text-image",
           order: 1,
           heading: "Coaching Philosophy",
           body: "<p>We coach with high standards, clear communication, and a player-first approach to development.</p>",
-          image: PLACEHOLDER("team", "Coaching staff"),
+          image: TEAM_2,
           imagePosition: "right",
         }),
       ],
@@ -306,44 +309,64 @@ async function seedPages() {
       key: "gallery",
       slug: "gallery",
       title: "Gallery",
-      sections: heroSections("Gallery", "Game Day & Training", "Moments from the Mountie program.", "gallery"),
+      sections: heroSections("Gallery", "Game Day & Training", "Moments from the Mountie program.", GALLERY[0]),
     },
     {
       key: "news",
       slug: "news",
       title: "News",
-      sections: heroSections("News", "Latest Updates", "Program news and announcements.", "news"),
+      sections: heroSections("News", "Latest Updates", "Program news and announcements.", BLOG_1),
     },
     {
       key: "shop",
       slug: "shop",
       title: "Shop",
-      sections: heroSections("Shop", "Mountie Gear", "Show your Mountie pride.", "product"),
+      sections: heroSections("Shop", "Mountie Gear", "Show your Mountie pride.", SHOP_1),
     },
     {
       key: "testimonials",
       slug: "testimonials",
       title: "Testimonials",
-      sections: heroSections("Testimonials", "Community Voices", "Stories from our Mountie family.", "team"),
+      sections: heroSections(
+        "Testimonials",
+        "Community Voices",
+        "Stories from our Mountie family.",
+        HOME_INTRO,
+      ),
     },
     {
       key: "faqs",
       slug: "faqs",
       title: "FAQs",
-      sections: heroSections("FAQs", "Questions & Answers", "Everything you need to know.", "court"),
+      sections: heroSections(
+        "FAQs",
+        "Questions & Answers",
+        "Everything you need to know.",
+        HERO_BACKGROUND,
+      ),
     },
     {
       key: "contact",
       slug: "contact",
       title: "Contact",
-      sections: heroSections("Contact", "Get In Touch", "Reach Head Coach Tj Anderson.", "court"),
+      sections: heroSections(
+        "Contact",
+        "Get In Touch",
+        "Reach Head Coach Tj Anderson.",
+        HERO_BACKGROUND,
+      ),
     },
     {
       key: "pricing",
       slug: "pricing",
       title: "Pricing",
       sections: [
-        ...heroSections("Pricing", "Program Pricing", "Contact us for current rates.", "service"),
+        ...heroSections(
+          "Pricing",
+          "Program Pricing",
+          "Contact us for current rates.",
+          PROGRAM_2,
+        ),
         section({
           id: "pricing-info",
           sectionType: "text",
@@ -382,7 +405,7 @@ async function seedServices() {
       cardTitle: "Annual Youth Basketball Camp",
       cardDescription:
         "A high-energy camp focused on fundamentals, competitive drills, and Mountie team culture.",
-      cardImage: PLACEHOLDER("service", "Youth basketball camp"),
+      cardImage: PROGRAM_1,
       cardCtaLabel: "Learn More",
       order: 0,
       intro:
@@ -401,6 +424,16 @@ async function seedServices() {
         description: "Dates announced seasonally — contact for details.",
       },
       whatToBring: ["Athletic shoes", "Water bottle", "Practice gear"],
+      relatedImages: [GALLERY[0], GALLERY[1], GALLERY[2]],
+      hero: section({
+        id: "service-hero-camp",
+        sectionType: "hero",
+        order: 0,
+        heading: "Annual Youth Basketball Camp",
+        body: "Fundamentals, competition, and Mountie team culture.",
+        image: PROGRAM_1,
+        imagePosition: "background",
+      }),
     },
     {
       slug: "youth-basketball-training-and-development",
@@ -408,7 +441,7 @@ async function seedServices() {
       cardTitle: "Youth Training & Development",
       cardDescription:
         "Structured training sessions designed to elevate skill, IQ, and confidence on the court.",
-      cardImage: PLACEHOLDER("court", "Youth training session"),
+      cardImage: PROGRAM_2,
       cardCtaLabel: "Learn More",
       order: 1,
       intro:
@@ -423,6 +456,16 @@ async function seedServices() {
         items: ["Youth players", "Parents seeking structured development"],
       },
       whatToBring: ["Basketball shoes", "Water", "Notebook optional"],
+      relatedImages: [GALLERY[3], GALLERY[4], GALLERY[5]],
+      hero: section({
+        id: "service-hero-training",
+        sectionType: "hero",
+        order: 0,
+        heading: "Youth Training & Development",
+        body: "Structured sessions to elevate skill, IQ, and confidence.",
+        image: PROGRAM_2,
+        imagePosition: "background",
+      }),
     },
   ];
 
@@ -439,18 +482,20 @@ async function seedServices() {
 
 async function seedGallery() {
   const categories = [
-    { slug: "game-day", name: "Game Day", order: 0 },
-    { slug: "practice", name: "Practice", order: 1 },
-    { slug: "community", name: "Community", order: 2 },
+    { slug: "game-day", name: "Game Day", order: 0, coverImage: GALLERY[0] },
+    { slug: "practice", name: "Practice", order: 1, coverImage: GALLERY[3] },
+    { slug: "community", name: "Community", order: 2, coverImage: GALLERY[6] },
   ];
 
   for (const cat of categories) {
     await GalleryCategory.findOneAndUpdate(
       { slug: cat.slug },
       {
-        ...cat,
-        description: `${cat.name} moments — replace with official photography.`,
-        coverImage: PLACEHOLDER("gallery", cat.name),
+        slug: cat.slug,
+        name: cat.name,
+        order: cat.order,
+        description: `${cat.name} moments from Mountie Basketball.`,
+        coverImage: cat.coverImage,
         status: "published",
       },
       { upsert: true, returnDocument: "after" },
@@ -458,23 +503,28 @@ async function seedGallery() {
   }
 
   const images = [
-    { slug: "game-day-1", categorySlug: "game-day", title: "Arena Lights" },
-    { slug: "game-day-2", categorySlug: "game-day", title: "Tip Off" },
-    { slug: "practice-1", categorySlug: "practice", title: "Training Session" },
-    { slug: "practice-2", categorySlug: "practice", title: "Skill Work" },
-    { slug: "community-1", categorySlug: "community", title: "Mountie Supporters" },
-    { slug: "community-2", categorySlug: "community", title: "Community Night" },
+    { slug: "game-day-1", categorySlug: "game-day", title: "Game Day Action", image: GALLERY[0] },
+    { slug: "game-day-2", categorySlug: "game-day", title: "Game Day Energy", image: GALLERY[1] },
+    { slug: "game-day-3", categorySlug: "game-day", title: "Court Focus", image: GALLERY[2] },
+    { slug: "practice-1", categorySlug: "practice", title: "Training Session", image: GALLERY[3] },
+    { slug: "practice-2", categorySlug: "practice", title: "Skill Work", image: GALLERY[4] },
+    { slug: "practice-3", categorySlug: "practice", title: "Practice Intensity", image: GALLERY[5] },
+    { slug: "community-1", categorySlug: "community", title: "Mountie Supporters", image: GALLERY[6] },
+    { slug: "community-2", categorySlug: "community", title: "Community Night", image: GALLERY[7] },
+    { slug: "community-3", categorySlug: "community", title: "Mountie Pride", image: GALLERY[8] },
   ];
 
   for (const [index, img] of images.entries()) {
     await GalleryImage.findOneAndUpdate(
       { slug: img.slug },
       {
-        ...img,
-        caption: `[Draft placeholder] ${img.title} — replace via admin.`,
-        image: PLACEHOLDER("gallery", img.title),
+        slug: img.slug,
+        categorySlug: img.categorySlug,
+        title: img.title,
+        caption: img.title,
+        image: img.image,
         order: index,
-        featured: index < 3,
+        featured: index < 6,
         status: "published",
       },
       { upsert: true, returnDocument: "after" },
@@ -533,7 +583,7 @@ async function seedTestimonials() {
       { slug: item.slug },
       {
         ...item,
-        authorPhoto: PLACEHOLDER("team", item.authorName),
+        authorPhoto: [TEAM_1, TEAM_2, TEAM_3][index % 3],
         order: index,
         status: "published",
       },
@@ -634,12 +684,12 @@ async function seedNews() {
     },
   ];
 
-  for (const post of posts) {
+  for (const [index, post] of posts.entries()) {
     await BlogPost.findOneAndUpdate(
       { slug: post.slug },
       {
         ...post,
-        coverImage: PLACEHOLDER("news", post.title),
+        coverImage: index === 0 ? BLOG_1 : BLOG_2,
         status: "published",
         publishedAt: new Date(),
       },
@@ -651,21 +701,42 @@ async function seedNews() {
 }
 
 async function seedTeam() {
-  await TeamMember.findOneAndUpdate(
-    { slug: "tj-anderson" },
+  const members = [
     {
       slug: "tj-anderson",
       name: "Tj Anderson",
       role: "Head Coach",
       bio: "Head Coach of Philipsburg-Osceola Mountie Basketball, focused on player development, discipline, and community.",
-      photo: PLACEHOLDER("team", "Head Coach Tj Anderson"),
+      photo: TEAM_1,
       email: "Tjandersty@gmail.com",
       phone: "814-500-8613",
       order: 0,
-      status: "published",
     },
-    { upsert: true, returnDocument: "after" },
-  );
+    {
+      slug: "mountie-staff-2",
+      name: "Mountie Coaching Staff",
+      role: "Assistant Coach",
+      bio: "Supporting player development and competitive readiness across Mountie Basketball programs.",
+      photo: TEAM_2,
+      order: 1,
+    },
+    {
+      slug: "mountie-staff-3",
+      name: "Mountie Basketball Team",
+      role: "Program Staff",
+      bio: "Dedicated to building complete athletes and a connected Mountie community.",
+      photo: TEAM_3,
+      order: 2,
+    },
+  ];
+
+  for (const member of members) {
+    await TeamMember.findOneAndUpdate(
+      { slug: member.slug },
+      { ...member, status: "published" },
+      { upsert: true, returnDocument: "after" },
+    );
+  }
 
   console.log("Team seeded.");
 }
@@ -677,7 +748,7 @@ async function seedProducts() {
       name: "Mountie Practice Tee",
       description: "Sample practice tee — replace with official merchandise details.",
       price: 25,
-      images: [PLACEHOLDER("product", "Mountie Practice Tee")],
+      images: [SHOP_1],
       inventory: 50,
       order: 0,
     },
@@ -687,7 +758,7 @@ async function seedProducts() {
       description: "Sample hoodie listing — contact to order.",
       price: 45,
       compareAtPrice: 55,
-      images: [PLACEHOLDER("product", "Mountie Hoodie")],
+      images: [SHOP_2],
       inventory: 30,
       order: 1,
     },

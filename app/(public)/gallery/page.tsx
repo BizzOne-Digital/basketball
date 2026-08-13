@@ -56,26 +56,7 @@ export default async function GalleryPage() {
           {images.length > 0 ? (
             <GalleryGrid images={images} columns={4} />
           ) : (
-            <>
-              <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {[
-                  PLACEHOLDERS.gallery,
-                  PLACEHOLDERS.court,
-                  PLACEHOLDERS.team,
-                  PLACEHOLDERS.hero,
-                  PLACEHOLDERS.service,
-                  PLACEHOLDERS.news,
-                ].map((src, index) => (
-                  <div
-                    key={`${src}-${index}`}
-                    className="relative aspect-square overflow-hidden rounded-2xl border border-white/10"
-                  >
-                    <Image src={src} alt={`Gallery placeholder ${index + 1}`} fill className="object-cover" />
-                  </div>
-                ))}
-              </div>
-              <EmptyState title="Gallery Photos Coming Soon" />
-            </>
+            <EmptyState title="Gallery Photos Coming Soon" />
           )}
         </div>
       </section>

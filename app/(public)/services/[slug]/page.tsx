@@ -131,19 +131,7 @@ export default async function ServiceDetailPage({
             ))}
           </div>
         </section>
-      ) : (
-        <section className="py-16">
-          <div className="mx-auto grid max-w-7xl gap-4 px-4 sm:grid-cols-2 lg:grid-cols-4 lg:px-8">
-            {[PLACEHOLDERS.court, PLACEHOLDERS.team, PLACEHOLDERS.gallery, PLACEHOLDERS.hero].map(
-              (src, index) => (
-                <div key={src} className="relative aspect-square overflow-hidden rounded-2xl">
-                  <Image src={src} alt={`${service.title} ${index + 1}`} fill className="object-cover" />
-                </div>
-              ),
-            )}
-          </div>
-        </section>
-      )}
+      ) : null}
 
       <section className="pb-24">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">

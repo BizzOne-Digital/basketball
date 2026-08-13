@@ -1,19 +1,41 @@
 import type { ImageObject } from "@/types";
 
+export const SITE_IMAGES = {
+  programs: ["/images/Programs-1.png", "/images/Programs-2.png"] as const,
+  gallery: [
+    "/images/gallery-1.png",
+    "/images/gallery-2.png",
+    "/images/gallery-3.png",
+    "/images/gallery-4.png",
+    "/images/gallery-5.png",
+    "/images/gallery-6.png",
+    "/images/gallery-7.png",
+    "/images/gallery-8.png",
+    "/images/gallery-9.png",
+  ] as const,
+  shop: ["/images/shop-1.png", "/images/shop-2.png"] as const,
+  blog: ["/images/Blog-1.png", "/images/Blog-2.png"] as const,
+  team: ["/images/Team.png", "/images/Team-2.png", "/images/Team-3.png"] as const,
+} as const;
+
 export const PLACEHOLDERS = {
   hero: "/images/hero-background.png",
-  court: "/images/placeholders/court.svg",
-  team: "/images/placeholders/team.svg",
-  gallery: "/images/placeholders/gallery.svg",
-  product: "/images/placeholders/product.svg",
-  news: "/images/placeholders/news.svg",
-  service: "/images/placeholders/service.svg",
+  court: SITE_IMAGES.programs[1],
+  team: SITE_IMAGES.team[0],
+  gallery: SITE_IMAGES.gallery[0],
+  product: SITE_IMAGES.shop[0],
+  news: SITE_IMAGES.blog[0],
+  service: SITE_IMAGES.programs[0],
 } as const;
 
 export type PlaceholderKey = keyof typeof PLACEHOLDERS;
 
 export const DEFAULT_LOGO = "/images/mountie-logo.png";
 export const HOME_INTRO_IMAGE = "/images/home-intro.png";
+
+export function imageObject(path: string, alt: string): ImageObject {
+  return { path, alt };
+}
 
 export function resolveImagePath(
   image?: ImageObject | null,
