@@ -264,6 +264,86 @@ export interface AdminUserDocument {
   active: boolean;
 }
 
+export interface PlayerRosterDocument {
+  slug: string;
+  name: string;
+  grade: "Freshman" | "Sophomore" | "Junior" | "Senior";
+  jerseyNumber?: number;
+  position?: string;
+  height?: string;
+  headshot?: ImageObject;
+  bio?: string;
+  season: string;
+  order?: number;
+  status: ContentStatus;
+}
+
+export interface SponsorDocument {
+  slug: string;
+  name: string;
+  logo?: ImageObject;
+  websiteUrl?: string;
+  tier: "platinum" | "gold" | "silver" | "bronze" | "supporter";
+  season: string;
+  description?: string;
+  order?: number;
+  status: ContentStatus;
+}
+
+export interface OpponentGymDocument {
+  slug: string;
+  schoolName: string;
+  address: string;
+  logo?: ImageObject;
+  mapUrl?: string;
+  websiteUrl?: string;
+  order?: number;
+  status: ContentStatus;
+}
+
+export interface AlumniSpotlightDocument {
+  slug: string;
+  name: string;
+  graduationYear: number;
+  photo?: ImageObject;
+  position?: string;
+  bio?: string;
+  achievements?: string[];
+  careerHighlights?: string;
+  currentStatus?: string;
+  featured?: boolean;
+  order?: number;
+  seo?: SEO;
+  status: ContentStatus;
+}
+
+export interface RecordBookDocument {
+  category: "team" | "individual" | "coaching";
+  recordType: string;
+  subcategory?: string;
+  recordHolder?: string;
+  value: string;
+  season?: string;
+  opponent?: string;
+  date?: string;
+  notes?: string;
+  order?: number;
+  status: ContentStatus;
+}
+
+export interface CoachingRecordDocument {
+  coachName: string;
+  yearsCoached: string;
+  wins: number;
+  losses: number;
+  winPercentage?: number;
+  photo?: ImageObject;
+  achievements?: string[];
+  bio?: string;
+  order?: number;
+  status: ContentStatus;
+}
+
 export type DocumentId = Types.ObjectId;
 
 /** @deprecated Use SectionType */

@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { RosterGrid } from "@/components/public/RosterGrid";
+import { SeasonSections } from "@/components/public/SeasonSections";
 
 export const metadata: Metadata = {
   title: "Meet the Mounties",
-  description: "Philipsburg-Osceola Mountaineer Basketball roster by class year.",
+  description:
+    "Philipsburg-Osceola Mountaineer Basketball team pictures, season by season.",
 };
 
 export default function MeetTheMountiesPage() {
   return (
     <ProgramPageShell
       title="Meet the Mounties"
-      description="Our varsity roster — seniors, juniors, sophomores, and freshmen."
+      description="Browse Mountaineer Basketball team pictures from every season."
       breadcrumbs={[
         { label: "Home", href: "/" },
         { label: "Meet the Mounties" },
       ]}
     >
-      <RosterGrid />
+      <SeasonSections />
     </ProgramPageShell>
   );
 }

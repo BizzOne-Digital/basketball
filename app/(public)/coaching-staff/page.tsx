@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { CoachingStaffGrid } from "@/components/public/CoachingStaffGrid";
+import { ImageReveal } from "@/components/public/ImageReveal";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
+import { getSeasonCoachingPhoto } from "@/lib/content/seasons";
 
 export const metadata: Metadata = {
   title: "Coaching Staff",
@@ -8,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default function CoachingStaffPage() {
+  const coachingPhoto = getSeasonCoachingPhoto("2025-26");
+
   return (
     <ProgramPageShell
       title="Coaching Staff"
@@ -17,6 +21,20 @@ export default function CoachingStaffPage() {
         { label: "Coaching Staff" },
       ]}
     >
+      {coachingPhoto ? (
+        <div className="mb-16">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-ice-blue">
+            2025-2026 Season
+          </p>
+          <ImageReveal
+            src={coachingPhoto}
+            alt="2025-2026 Philipsburg-Osceola Mountaineer Basketball coaching staff"
+            className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-white/10"
+            priority
+          />
+        </div>
+      ) : null}
+
       <CoachingStaffGrid />
     </ProgramPageShell>
   );

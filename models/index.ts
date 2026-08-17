@@ -17,3 +17,15 @@ export {
   type ContactSubmissionDoc,
 } from "./ContactSubmission";
 export { default as StoredUpload, type StoredUploadDoc } from "./StoredUpload";
+export { default as PlayerRoster, type PlayerRosterDoc } from "./PlayerRoster";
+export { default as Sponsor, type SponsorDoc } from "./Sponsor";
+export { default as OpponentGym, type OpponentGymDoc } from "./OpponentGym";
+export {
+  default as AlumniSpotlight,
+  type AlumniSpotlightDoc,
+} from "./AlumniSpotlight";
+export { default as RecordBook, type RecordBookDoc } from "./RecordBook";
+export {
+  default as CoachingRecord,
+  type CoachingRecordDoc,
+} from "./CoachingRecord";

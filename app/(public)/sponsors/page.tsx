@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { SPONSORS_2026 } from "@/lib/content/mountie-program";
-import { getGalleryImageByIndex } from "@/lib/images";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "2026 Sponsors and Donors",
@@ -18,26 +17,33 @@ export default function SponsorsPage() {
         { label: "2026 Sponsors" },
       ]}
     >
-      <div className="space-y-10">
+      <div className="space-y-12">
         <p className="max-w-3xl text-lg leading-8 text-mountie-silver">
           {SPONSORS_2026.intro}
         </p>
-        <p className="text-sm uppercase tracking-[0.18em] text-ice-blue">
-          {SPONSORS_2026.note}
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }, (_, index) => (
-            <div
-              key={index}
-              className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10"
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {SPONSORS_2026.logos.map((sponsor, index) => (
+            <article
+              key={sponsor.slug}
+              className="group overflow-hidden rounded-2xl border border-white/10 bg-white/95 transition-all duration-500 hover:border-ice-blue/50 hover:shadow-[0_24px_60px_-30px_rgba(125,211,252,0.4)]"
             >
-              <Image
-                src={getGalleryImageByIndex(index)}
-                alt={`Sponsor placeholder ${index + 1}`}
-                fill
-                className="object-cover opacity-80"
-              />
-            </div>
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src={`/images/sponsors/${sponsor.slug}.png`}
+                  alt={sponsor.name}
+                  fill
+                  priority={index < 6}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-contain p-6 transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+              </div>
+              <div className="border-t border-midnight/10 bg-white px-4 py-3">
+                <p className="text-center font-display text-sm uppercase tracking-[0.1em] text-midnight">
+                  {sponsor.name}
+                </p>
+              </div>
+            </article>
           ))}
         </div>
       </div>

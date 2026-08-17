@@ -7,7 +7,12 @@ import { ChevronDown, Menu, X } from "lucide-react";
 import { Logo } from "@/components/public/Logo";
 import { MobileMenu } from "@/components/public/MobileMenu";
 import { MagneticButton } from "@/components/motion/MagneticButton";
-import { HEADER_MORE_LINKS, HEADER_NAV_LINKS } from "@/lib/navigation";
+import {
+  HEADER_MORE_LINKS,
+  HEADER_NAV_LINKS,
+  MEET_THE_MOUNTIES_HREF,
+  MEET_THE_MOUNTIES_LINKS,
+} from "@/lib/navigation";
 import { cn } from "@/lib/utils/cn";
 import type { SiteSettingsDocument } from "@/types";
 
@@ -19,8 +24,10 @@ export function Header({ settings }: HeaderProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [mountiesOpen, setMountiesOpen] = useState(false);
 
   const isMoreActive = HEADER_MORE_LINKS.some((link) => pathname === link.href);
+  const isMountiesActive = pathname.startsWith("/meet-the-mounties");
 
   return (
     <>
@@ -49,6 +56,53 @@ export function Header({ settings }: HeaderProps) {
                 {link.label}
               </Link>
             ))}
+
+            {/* Meet the Mounties Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setMountiesOpen(true)}
+              onMouseLeave={() => setMountiesOpen(false)}
+            >
+              <div
+                className={cn(
+                  "inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em]",
+                  isMountiesActive ? "text-ice-blue" : "text-mountie-silver",
+                )}
+              >
+                <Link
+                  href={MEET_THE_MOUNTIES_HREF}
+                  className="transition-colors hover:text-ice-blue"
+                >
+                  Meet the Mounties
+                </Link>
+                <button
+                  type="button"
+                  aria-label="Toggle season menu"
+                  aria-expanded={mountiesOpen}
+                  className="transition-colors hover:text-ice-blue"
+                  onClick={() => setMountiesOpen((value) => !value)}
+                >
+                  <ChevronDown
+                    size={14}
+                    className={cn("transition-transform", mountiesOpen && "rotate-180")}
+                  />
+                </button>
+              </div>
+              {mountiesOpen ? (
+                <div className="absolute left-0 top-full z-50 mt-2 min-w-[220px] rounded-2xl border border-white/10 bg-midnight p-2 shadow-xl">
+                  {MEET_THE_MOUNTIES_LINKS.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMountiesOpen(false)}
+                      className="block rounded-xl px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-mountie-silver transition-colors hover:bg-white/5 hover:text-ice-blue"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              ) : null}
+            </div>
 
             <div
               className="relative"

@@ -18,6 +18,9 @@ export const SITE_IMAGES = {
   team: ["/images/Team.png", "/images/Team-2.png", "/images/Team-3.png"] as const,
 } as const;
 
+export const DEFAULT_LOGO = "/images/mountie-logo.png";
+export const HOME_INTRO_IMAGE = "/images/home-intro.png";
+
 export const PLACEHOLDERS = {
   hero: "/images/hero-background.png",
   court: SITE_IMAGES.programs[1],
@@ -26,12 +29,11 @@ export const PLACEHOLDERS = {
   product: SITE_IMAGES.shop[0],
   news: SITE_IMAGES.blog[0],
   service: SITE_IMAGES.programs[0],
+  avatar: SITE_IMAGES.team[0], // Default avatar for players/coaches
+  logo: DEFAULT_LOGO, // Default logo for schools/sponsors
 } as const;
 
 export type PlaceholderKey = keyof typeof PLACEHOLDERS;
-
-export const DEFAULT_LOGO = "/images/mountie-logo.png";
-export const HOME_INTRO_IMAGE = "/images/home-intro.png";
 
 export function imageObject(path: string, alt: string): ImageObject {
   return { path, alt };

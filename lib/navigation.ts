@@ -1,11 +1,19 @@
+import { SEASONS, seasonHref } from "@/lib/content/seasons";
+
 export const HEADER_NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/meet-the-mounties", label: "Meet the Mounties" },
   { href: "/schedule", label: "Schedule" },
   { href: "/coaching-staff", label: "Coaching Staff" },
   { href: "/team-philosophy", label: "Philosophy" },
   { href: "/support", label: "Support" },
 ] as const;
+
+export const MEET_THE_MOUNTIES_HREF = "/meet-the-mounties";
+
+export const MEET_THE_MOUNTIES_LINKS = SEASONS.map((season) => ({
+  href: seasonHref(season.slug),
+  label: season.label,
+}));
 
 export const HEADER_MORE_LINKS = [
   { href: "/sponsors", label: "2026 Sponsors" },

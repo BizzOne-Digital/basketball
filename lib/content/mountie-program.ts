@@ -51,11 +51,79 @@ export const COACHING_STAFF = [
 ] as const;
 
 export const TEAM_PHILOSOPHY = {
-  title: "Our Team Philosophy",
-  subtitle: "Attitude, Commitment, & Class",
-  body: [
-    "We want all of our players to keep a positive Attitude. By being the best that they can be to make our team the best that it could be and to always behave in a first class manor.",
-    "We take great pride in our player's behavior on and off the floor.",
+  title: "PO Basketball",
+  subtitle: "This Year's Outline For PO High School Boy's Basketball Program",
+  circle:
+    "We will always start our practices at the circle for our thought of the day. It represents unity, a circle has no top or bottom, and everyone is equal. Everybody has a job to do and everybody has a role on this team. We are all working together for a common goal.",
+  philosophyTitle: "Our Team Philosophy",
+  philosophyValues: "Attitude, Commitment, & Class",
+  philosophyBody:
+    "We want all of our players to keep a positive Attitude. By being the best that they can be to make our team the best that it could be and to always behave in a first class manner. We take great pride in our player's behavior on and off the floor.",
+  commitmentsHeading:
+    "The 10 Commitments (I would like to keep these on a board in the gym)",
+  commitments: [
+    {
+      number: 1,
+      title: "We Will Set Our Defense Every Time",
+      detail:
+        "5 guys need to set our Defense at the same time for it to work",
+    },
+    {
+      number: 2,
+      title: "We Will Pressure The Man With The Ball",
+      detail:
+        "Anyone who's guarding the man with the ball should stick with him and pressure him",
+    },
+    {
+      number: 3,
+      title: "We Will Pack The Lane To Prevent Penetration",
+      detail:
+        "Penetration comes in four ways: Dribble Penetration, Passing Penetration, Cutting Penetration, Rebound Penetration. We need to prevent all four and we will do this by packing the lanes while one to two guys are pressuring the ball",
+    },
+    {
+      number: 4,
+      title: "We will contest all shots hands high, without fouling",
+      detail: "We want to contest shots but not foul shooters",
+    },
+    {
+      number: 5,
+      title: "We Will Block Out, Rebound And Run",
+      detail: "This is a must",
+    },
+    {
+      number: 6,
+      title: "We Will Run For Lay-Ups And Open Threes",
+      detail:
+        "We will condition our players. We must win the race — it's a race to see who could beat the other person down the floor. The team that is well conditioned will have the victory",
+    },
+    {
+      number: 7,
+      title: "We Will Share The Ball",
+      detail:
+        "There's only one ball with five guys on the court, so you must pass it to get a good look at the basket",
+    },
+    {
+      number: 8,
+      title: "We Will Penetrate The Defense",
+      detail: "We must do this one every single possession",
+    },
+    {
+      number: 9,
+      title: "We Will Create Good Shots Both Inside And Outside",
+      detail:
+        "It's very important to have balance into our attack. We want our inside guys to get their game going but we want to give the green light to our shooters. Balance at the half court level is the key to a good offense.",
+    },
+    {
+      number: 10,
+      title: "We Will Attack The Offensive Boards",
+      detail:
+        "We want to make sure that we have our rebounders attacking the glass every time the ball is in the air. 80% of the rebounds go opposite of the shooter — we must attack the weak side of the glass",
+    },
+  ],
+  closingNotes: [
+    "I would like for our players to see this everyday. I would like to go over these in our circle before and after practice.",
+    "The First Five Commitments have to do with defense and stopping the opponents from scoring.",
+    "The Next Five Commitments are offensive with us putting the ball in the basket a high percentage of the time.",
   ],
 } as const;
 
@@ -68,20 +136,49 @@ export const SPONSORS_2026 = {
   title: "2026 Sponsors and Donors",
   intro:
     "The Mountaineer Basketball Program and its families thanks all of this season's sponsors and donors. Your support will help us keep our proud tradition thriving by assuring our players have uniforms, equipment, and programs to keep them developing into the best players they can be.",
-  note: "Sponsor logos and photos will be displayed here as they are received.",
+  logos: [
+    { slug: "under-pressure-pro-cleaners", name: "Under Pressure Pro Cleaners LLC" },
+    { slug: "philipsburg-marble-granite", name: "Philipsburg Marble & Granite" },
+    { slug: "pa-warhawks", name: "PA Warhawks" },
+    { slug: "central-pa-lions", name: "Central PA Lions" },
+    { slug: "the-morning-grind", name: "The Morning Grind" },
+    { slug: "alexander-b-property-repair", name: "Alexander B Property Repair & Restoration" },
+    { slug: "manning-photography", name: "Manning Photography" },
+    { slug: "glenn-o-hawbaker", name: "Glenn O. Hawbaker, Inc" },
+    { slug: "nittany-energy", name: "Nittany Energy" },
+    { slug: "lee-industries", name: "Lee Industries" },
+    { slug: "osceola-lodge-515", name: "Osceola Lodge 515" },
+  ],
 } as const;
 
 export const CASH_BASH = {
-  title: "PO Elementary Boys Basketball Cash Bash",
+  title: "Philipsburg Osceola Elementary Basketball Cash Bash",
+  theme: "Vegas Night",
+  date: "January 10, 2026",
+  time: "6–11 PM",
+  doorsOpen: "Doors Open @ 5:45 pm",
+  location: "Columbia Fire Hall, Curtain Street, Osceola Mills",
+  entertainment: "Gigi Entertainment",
+  ageRequirement: "Must be 21 to attend",
+  ticketPrice: "$20 / ticket",
+  grandPrize: "Final Cash Winner $1,000",
+  cashChance: "Chance @ $100 every 15 minutes",
+  ticketIncludes: [
+    "Meal",
+    "Adult Drinks",
+    "Entertainment",
+    "Chance @ $100 every 15 minutes",
+  ],
+  soldSeparately: [
+    "Basket Raffle",
+    "Rip-off Tickets",
+    "Door Prizes",
+    "50/50 + More",
+  ],
+  presentToWin: "You must be present to win @ 9 PM",
+  flyerImage: "/images/events/cash-bash-flyer.png",
   facebookLabel: "PO Elementary Boys Basketball Cash Bash",
   facebookUrl: "https://www.facebook.com/",
-  highlights: [
-    "We are giving away $3,000. $100 every 15 mins and $1,000 at midnight. That alone is worth $20.00.",
-    "Raffle for a HP 15.6in Windows Laptop Intel Core i3-N305 8GB RAM 256GB SSD Natural Silver — $849.00 value! Must be present to enter and win!!!",
-    "Who wants to win two 75 Inch Hisense Smart Roku TV? This is just one of our big ticket raffle items!",
-    "#MountieYouthBasketball #FeelingLucky #Brotherhood",
-    "Please reach out for a ticket!",
-  ],
 } as const;
 
 export const FUNDRAISING = {
@@ -169,13 +266,55 @@ export const ALUMNI_CONTENT = {
   headline: "Honoring our 1976 Champions — 50 Year Anniversary",
   timelineNote: "Timeline and team pictures from Mountie history will be added here.",
   sections: [
-    "College Basketball Players / League Player Awards",
-    "2020-2024 Team Pictures (Game and Team)",
-    "2024-2026 Team Pictures (Game and Team)",
+    {
+      title: "College Basketball Players / League Player Awards",
+      images: [],
+    },
+    {
+      title: "2020-2024 Team Pictures (Game and Team)",
+      images: [
+        {
+          path: "/images/alumni/team-pictures/team-2020-21.png",
+          alt: "2020-2021 Mounties team photo",
+          label: "2020-2021",
+        },
+        {
+          path: "/images/alumni/team-pictures/team-2021-22.png",
+          alt: "2021-2022 Mounties team photo",
+          label: "2021-2022",
+        },
+        {
+          path: "/images/alumni/team-pictures/team-2022-23.png",
+          alt: "2022-2023 Mounties team photo",
+          label: "2022-2023",
+        },
+        {
+          path: "/images/alumni/team-pictures/team-2023-24.png",
+          alt: "2023-2024 Mounties team photo",
+          label: "2023-2024",
+        },
+      ],
+    },
+    {
+      title: "2024-2025 Team Pictures (Game and Team)",
+      images: [
+        {
+          path: "/images/alumni/team-pictures/team-2024-25.png",
+          alt: "2024-2025 Mounties team photo",
+          label: "2024-2025",
+        },
+        {
+          path: "/images/alumni/team-pictures/team-2025-26.png",
+          alt: "2025-2026 Mounties team photo",
+          label: "2025-2026",
+        },
+      ],
+    },
   ],
   spotlight: {
     name: "Greg Wilson",
     note: "Alumni spotlight — full story coming soon.",
+    image: "/images/alumni/greg-wilson.png",
   },
 } as const;
 
