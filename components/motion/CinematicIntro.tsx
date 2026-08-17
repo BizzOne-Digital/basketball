@@ -17,7 +17,7 @@ export function CinematicIntro() {
       return;
     }
 
-    setVisible(true);
+    const showTimer = setTimeout(() => setVisible(true), 0);
 
     const timers = [
       setTimeout(() => setPhase(1), 600),
@@ -28,7 +28,10 @@ export function CinematicIntro() {
       }, 3800),
     ];
 
-    return () => timers.forEach(clearTimeout);
+    return () => {
+      clearTimeout(showTimer);
+      timers.forEach(clearTimeout);
+    };
   }, [reducedMotion]);
 
   function skipIntro() {

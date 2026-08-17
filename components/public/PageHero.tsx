@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 import { ParallaxImage } from "@/components/motion/ParallaxImage";

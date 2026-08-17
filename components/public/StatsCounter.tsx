@@ -37,12 +37,13 @@ function animateValue(
 export function StatsCounter({ stats }: StatsCounterProps) {
   const reducedMotion = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const [values, setValues] = useState<number[]>(stats.map(() => 0));
-  const [started, setStarted] = useState(reducedMotion);
+  const targetValues = stats.map((stat) => stat.value);
+  const [values, setValues] = useState<number[]>(() => targetValues.map(() => 0));
+  const [started, setStarted] = useState(false);
+  const displayValues = reducedMotion ? targetValues : values;
 
   useEffect(() => {
     if (reducedMotion) {
-      setValues(stats.map((stat) => stat.value));
       return;
     }
 
@@ -61,7 +62,7 @@ export function StatsCounter({ stats }: StatsCounterProps) {
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [reducedMotion, stats]);
+  }, [reducedMotion]);
 
   useEffect(() => {
     if (!started || reducedMotion) return;
@@ -88,7 +89,7 @@ export function StatsCounter({ stats }: StatsCounterProps) {
           className="rounded-2xl border border-white/10 bg-mountie-blue/20 p-6 text-center"
         >
           <p className="font-display text-5xl text-ice-blue">
-            {values[index]}
+            {displayValues[index]}
             {stat.suffix ?? ""}
           </p>
           <p className="mt-2 text-xs uppercase tracking-[0.18em] text-mountie-silver">

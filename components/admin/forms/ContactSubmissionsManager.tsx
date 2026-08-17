@@ -8,7 +8,7 @@ import {
   markContactSubmissionRead,
 } from "@/lib/actions/admin/contact-submissions";
 import { ConfirmDialog } from "@/components/admin/ConfirmDialog";
-import { DataTable, DataTableActions } from "@/components/admin/DataTable";
+import { DataTable } from "@/components/admin/DataTable";
 
 type SubmissionRow = {
   _id: string;

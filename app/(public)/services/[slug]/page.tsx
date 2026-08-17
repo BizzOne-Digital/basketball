@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { SectionRenderer } from "@/components/cms/SectionRenderer";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 import { CTABanner } from "@/components/public/CTABanner";
-import { RichTextRenderer } from "@/components/public/RichTextRenderer";
 import { getServiceBySlug, getPublishedServices } from "@/lib/data/services";
 import { getSiteSettings } from "@/lib/data/settings";
 import { buildMetadataFromSeo } from "@/lib/seo/metadata";

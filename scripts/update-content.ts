@@ -4,8 +4,6 @@ import {
   PlayerRoster,
   OpponentGym,
   CoachingRecord,
-  RecordBook,
-  Sponsor,
   AlumniSpotlight,
   Page,
   GalleryCategory,
@@ -22,6 +20,19 @@ import { imageObject, SITE_IMAGES } from "@/lib/images";
 const MONGODB_URI =
   process.env.MONGODB_URI ?? "mongodb://127.0.0.1:27017/mountie-basketball";
 
+type RosterGrade = "Freshman" | "Sophomore" | "Junior" | "Senior";
+
+function classYearToGrade(classYear: string): RosterGrade {
+  const gradeMap: Record<string, RosterGrade> = {
+    Seniors: "Senior",
+    Juniors: "Junior",
+    Sophomores: "Sophomore",
+    Freshmen: "Freshman",
+  };
+
+  return gradeMap[classYear] ?? "Senior";
+}
+
 async function seedRoster() {
   const season = "2025-26";
   let order = 0;
@@ -35,7 +46,7 @@ async function seedRoster() {
         {
           slug,
           name: playerName,
-          grade: gradeGroup.classYear.slice(0, -1) as any, // Remove 's' from "Seniors" etc
+          grade: classYearToGrade(gradeGroup.classYear),
           season,
           order,
           status: "published",
@@ -55,8 +66,6 @@ async function seedCoachingStaff() {
   let order = 0;
 
   for (const coach of COACHING_STAFF) {
-    const slug = coach.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-
     await CoachingRecord.findOneAndUpdate(
       { coachName: coach.name },
       {
@@ -236,43 +245,6 @@ async function seedGalleryCategories() {
   console.log(`✅ Seeded ${categories.length} gallery categories.`);
 }
 
-async function seedRecordBookPlaceholders() {
-  const placeholderRecords = [
-    {
-      category: "team" as const,
-      recordType: "Most Wins in a Season",
-      value: "TBD",
-      notes: "Record book statistics will be added from Google Drive documents.",
-      order: 0,
-    },
-    {
-      category: "individual" as const,
-      recordType: "Most Career Points",
-      value: "TBD",
-      recordHolder: "To be determined",
-      notes: "Individual records tracked since 2020.",
-      order: 0,
-    },
-    {
-      category: "coaching" as const,
-      recordType: "Most Wins",
-      value: "TBD",
-      recordHolder: "To be determined",
-      notes: "Historical coaching records available.",
-      order: 0,
-    },
-  ];
-
-  for (const record of placeholderRecords) {
-    await RecordBook.create({
-      ...record,
-      status: "published",
-    });
-  }
-
-  console.log("✅ Seeded record book placeholders.");
-}
-
 async function main() {
   console.log("Connecting to MongoDB...");
   await mongoose.connect(MONGODB_URI);
@@ -285,7 +257,6 @@ async function main() {
   await seedAlumniSpotlight();
   await updateAlumniPage();
   await seedGalleryCategories();
-  // await seedRecordBookPlaceholders(); // Uncomment when needed
 
   console.log("\n✅ Content update completed successfully.");
   await mongoose.disconnect();

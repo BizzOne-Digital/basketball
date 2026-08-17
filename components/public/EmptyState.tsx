@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { MagneticButton } from "@/components/motion/MagneticButton";
 
 interface EmptyStateProps {

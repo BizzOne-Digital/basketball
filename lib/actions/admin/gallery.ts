@@ -90,7 +90,7 @@ export async function updateGalleryCategory(
       );
     }
 
-    const category = await GalleryCategory.findByIdAndUpdate(id, data, {
+    await GalleryCategory.findByIdAndUpdate(id, data, {
       returnDocument: "after",
       runValidators: true,
     });

@@ -15,6 +15,6 @@ export {
 } from "@/lib/uploads/stored-uploads";
 
 /** @deprecated Legacy disk uploads are no longer used in production. */
-export async function deleteFile(_relativePublicPath: string): Promise<void> {
+export async function deleteFile(): Promise<void> {
   return;
 }

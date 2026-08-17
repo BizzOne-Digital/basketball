@@ -97,22 +97,28 @@ export async function RosterGrid({ season = "2025-26" }: RosterGridProps) {
 
   // Fallback to static roster for current season only
   if (season === "2025-26") {
-    let photoIndex = 0;
+    const photoOffsets = ROSTER_BY_CLASS.map((_, index) =>
+      ROSTER_BY_CLASS.slice(0, index).reduce(
+        (sum, entry) => sum + entry.players.length,
+        0,
+      ),
+    );
 
     return (
       <div className="space-y-12">
         <p className="text-sm uppercase tracking-[0.2em] text-ice-blue">
           Headshots coming soon
         </p>
-        {ROSTER_BY_CLASS.map((group) => (
+        {ROSTER_BY_CLASS.map((group, groupIndex) => (
           <div key={group.classYear}>
             <h2 className="mb-6 font-display text-2xl uppercase tracking-[0.08em] text-mountie-white">
               {group.classYear}
             </h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {group.players.map((player) => {
-                const src = getGalleryImageByIndex(photoIndex);
-                photoIndex += 1;
+              {group.players.map((player, playerIndex) => {
+                const src = getGalleryImageByIndex(
+                  photoOffsets[groupIndex] + playerIndex,
+                );
 
                 return (
                   <article

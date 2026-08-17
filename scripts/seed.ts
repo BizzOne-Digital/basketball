@@ -76,10 +76,6 @@ function heroSections(
   ];
 }
 
-function contentSections(extra: PageSection[], startOrder = 1): PageSection[] {
-  return extra.map((s, i) => ({ ...s, order: startOrder + i }));
-}
-
 async function seedAdmin() {
   const email = process.env.ADMIN_EMAIL ?? "admin@mountiebasketball.com";
   const password = process.env.ADMIN_PASSWORD ?? "MountieAdmin2026!";
