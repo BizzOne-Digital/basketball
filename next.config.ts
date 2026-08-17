@@ -11,6 +11,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/gallery",
+        destination: "/meet-the-mounties",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -10,13 +10,15 @@ interface FooterProps {
 
 export function Footer({ settings }: FooterProps) {
   return (
-    <footer className="w-full overflow-x-clip border-t border-white/10 bg-midnight grain-overlay">
+    <footer className="w-full overflow-x-clip bg-midnight grain-overlay">
       <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div className="space-y-6">
             <Logo
               logo={settings.logo}
               organizationName={settings.organizationName}
+              size="lg"
+              showText={false}
             />
             <p className="max-w-md text-sm leading-7 text-mountie-silver">
               {settings.footerText ??

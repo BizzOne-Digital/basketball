@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CoachingStaffGrid } from "@/components/public/CoachingStaffGrid";
 import { ImageReveal } from "@/components/public/ImageReveal";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { getSeasonCoachingPhoto } from "@/lib/content/seasons";
@@ -22,7 +21,7 @@ export default function CoachingStaffPage() {
       ]}
     >
       {coachingPhoto ? (
-        <div className="mb-16">
+        <div>
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-ice-blue">
             2025-2026 Season
           </p>
@@ -34,8 +33,6 @@ export default function CoachingStaffPage() {
           />
         </div>
       ) : null}
-
-      <CoachingStaffGrid />
     </ProgramPageShell>
   );
 }

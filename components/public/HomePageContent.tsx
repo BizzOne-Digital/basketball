@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { GalleryGrid } from "@/components/public/GalleryGrid";
 import { NewsCard } from "@/components/public/NewsCard";
 import { SectionHeading } from "@/components/public/SectionHeading";
 import { SocialLinks } from "@/components/public/SocialLinks";
@@ -14,7 +13,6 @@ import {
   PROGRAM_BRAND,
 } from "@/lib/content/mountie-program";
 import { getPublishedPosts } from "@/lib/data/blog";
-import { getFeaturedImages } from "@/lib/data/gallery";
 import { PLACEHOLDERS } from "@/lib/images";
 import type { SiteSettingsDocument } from "@/types";
 
@@ -23,10 +21,7 @@ interface HomePageContentProps {
 }
 
 export async function HomePageContent({ settings }: HomePageContentProps) {
-  const [posts, gallery] = await Promise.all([
-    getPublishedPosts(3),
-    getFeaturedImages(8),
-  ]);
+  const posts = await getPublishedPosts(3);
 
   const quickLinks = [
     { href: "/meet-the-mounties", label: "Meet the Mounties" },
@@ -126,27 +121,6 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
                 {link.label}
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
-          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <SectionHeading eyebrow="Team Pictures" title="Gallery" />
-            <Link
-              href="/gallery"
-              className="shrink-0 text-sm uppercase tracking-[0.16em] text-ice-blue"
-            >
-              View All
-            </Link>
-          </div>
-          <div className="mt-10">
-            {gallery.length > 0 ? (
-              <GalleryGrid images={gallery} columns={4} />
-            ) : (
-              <EmptyState title="Gallery Coming Soon" actionHref="/gallery" actionLabel="Gallery" />
-            )}
           </div>
         </div>
       </section>

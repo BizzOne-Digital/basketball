@@ -267,10 +267,6 @@ export const ALUMNI_CONTENT = {
   timelineNote: "Timeline and team pictures from Mountie history will be added here.",
   sections: [
     {
-      title: "College Basketball Players / League Player Awards",
-      images: [],
-    },
-    {
       title: "2020-2024 Team Pictures (Game and Team)",
       images: [
         {

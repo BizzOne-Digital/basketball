@@ -36,7 +36,7 @@ export function Header({ settings }: HeaderProps) {
           <Logo
             logo={settings.logo}
             organizationName={settings.organizationName}
-            size="sm"
+            size="lg"
             showText={false}
             className="min-w-0 shrink"
           />

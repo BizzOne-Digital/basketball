@@ -1,6 +1,7 @@
 import { AnnouncementBar } from "@/components/public/AnnouncementBar";
 import { Footer } from "@/components/public/Footer";
 import { Header } from "@/components/public/Header";
+import { PartnerLogoMarquee } from "@/components/public/PartnerLogoMarquee";
 import { PageTransitionWrapper } from "@/components/motion/PageTransitionWrapper";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
@@ -23,6 +24,7 @@ export function PublicLayout({ settings, children }: PublicLayoutProps) {
             {children}
           </main>
         </PageTransitionWrapper>
+        <PartnerLogoMarquee />
         <Footer settings={settings} />
       </SmoothScrollProvider>
     </div>

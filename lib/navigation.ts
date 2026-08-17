@@ -24,7 +24,6 @@ export const HEADER_MORE_LINKS = [
   { href: "/record-book", label: "Record Book" },
   { href: "/alumni", label: "Alumni" },
   { href: "/related-sites", label: "Related Sites" },
-  { href: "/gallery", label: "Gallery" },
   { href: "/news", label: "Game Articles" },
 ] as const;
 
@@ -57,7 +56,7 @@ export const FOOTER_LINK_GROUPS = [
       { href: "/record-book", label: "Record Book" },
       { href: "/alumni", label: "Alumni" },
       { href: "/related-sites", label: "Related Sites" },
-      { href: "/gallery", label: "Team Pictures" },
+      { href: "/meet-the-mounties", label: "Team Pictures" },
       { href: "/news", label: "Game Articles" },
     ],
   },

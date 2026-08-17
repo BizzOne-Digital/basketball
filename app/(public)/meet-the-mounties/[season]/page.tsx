@@ -5,13 +5,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { GalleryGrid } from "@/components/public/GalleryGrid";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { SeasonRosterGrid } from "@/components/public/SeasonRosterGrid";
-import { SeasonSchedule } from "@/components/public/SeasonSchedule";
 import { getSeasonRoster } from "@/lib/content/season-rosters";
-import { getSeasonSchedule } from "@/lib/content/season-schedules";
-import { ImageReveal } from "@/components/public/ImageReveal";
 import {
   getSeason,
-  getSeasonCoachingPhoto,
   getSeasonGameActions,
   getSeasonNeighbours,
   getSeasonPhotos,
@@ -58,9 +54,7 @@ export default async function SeasonDetailPage({
   }
 
   const roster = getSeasonRoster(season.slug);
-  const coachingPhoto = getSeasonCoachingPhoto(season.slug);
   const gameActions = getSeasonGameActions(season.slug);
-  const schedule = getSeasonSchedule(season.slug);
   const { previous, next } = getSeasonNeighbours(season.slug);
 
   return (
@@ -87,32 +81,12 @@ export default async function SeasonDetailPage({
         <GalleryGrid images={getSeasonPhotos(season.slug)} columns={3} />
       )}
 
-      {coachingPhoto ? (
-        <div className="mt-16">
-          <h2 className="mb-8 font-display text-3xl uppercase tracking-[0.12em] text-mountie-white sm:text-4xl">
-            Coaching Staff
-          </h2>
-          <ImageReveal
-            src={coachingPhoto}
-            alt={`${season.label} coaching staff`}
-            className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-white/10"
-            priority
-          />
-        </div>
-      ) : null}
-
       {gameActions.length > 0 ? (
         <div className="mt-16">
           <h2 className="mb-8 font-display text-3xl uppercase tracking-[0.12em] text-mountie-white sm:text-4xl">
             Game Actions
           </h2>
           <GalleryGrid images={gameActions} columns={3} />
-        </div>
-      ) : null}
-
-      {schedule ? (
-        <div className="mt-16">
-          <SeasonSchedule schedule={schedule} />
         </div>
       ) : null}
 
