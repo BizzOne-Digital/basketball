@@ -222,12 +222,14 @@ export const COACHING_RECORDS = [
   { coach: "Mel Curtis", record: "14-54", years: "2008-10" },
   { coach: "Dave McKnight", record: "13-72", years: "2011-14" },
   { coach: "Matt Curtis", record: "25-107", years: "2014-20" },
-  { coach: "T. J. Anderson", record: "44-63", years: "2021-Now" },
+  { coach: "T. J. Anderson", record: "44-63", years: "2021- Now" },
 ] as const;
 
 export const RECORD_BOOK_SECTIONS = {
   intro:
-    "The P-O Mountaineer Basketball record book reflects Coach Anderson's tenure as head coach of the program since 2020. The record books are separated into team, individual, and career categories. Full stat documents will be linked from Google Drive as they are finalized.",
+    "The P-O Mountaineer Basketball record book reflects Coach Anderson's tenure as head coach of the program since 2020. The record books are separated into team, individual, and career categories.",
+  coachingHeading: "Coaching Records",
+  coachingSubtitle: "P-O Basketball Boys Program The Last Two Decades",
   team: [
     "Coaches Records (Through The Years)",
     "Championships (District and League)",
@@ -315,6 +317,10 @@ export const ALUMNI_CONTENT = {
 } as const;
 
 export const RELATED_SITES = [
+  {
+    label: "TJ Anderson's Central PA Lions Academy",
+    url: "https://www.centralpalions.com/about",
+  },
   {
     label: "X — Mountie Basketball",
     url: "https://twitter.com/PoBasketball",

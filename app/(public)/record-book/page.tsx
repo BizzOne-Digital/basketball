@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { getPublishedRecordsByCategory, getCoachingRecords } from "@/lib/data/records";
-import { RECORD_BOOK_SECTIONS } from "@/lib/content/mountie-program";
+import { getPublishedRecordsByCategory } from "@/lib/data/records";
+import {
+  COACHING_RECORDS,
+  RECORD_BOOK_SECTIONS,
+} from "@/lib/content/mountie-program";
 
 export const metadata: Metadata = {
   title: "Record Book",
@@ -9,10 +13,9 @@ export const metadata: Metadata = {
 };
 
 export default async function RecordBookPage() {
-  const [teamRecords, individualRecords, coachingRecords] = await Promise.all([
+  const [teamRecords, individualRecords] = await Promise.all([
     getPublishedRecordsByCategory("team"),
     getPublishedRecordsByCategory("individual"),
-    getCoachingRecords(),
   ]);
 
   return (
@@ -33,47 +36,64 @@ export default async function RecordBookPage() {
 
         {/* Coaching Records */}
         <section>
-          <h2 className="mb-6 font-display text-2xl uppercase tracking-[0.08em] text-ice-blue">
-            Coaching Records
+          <h2 className="mb-3 font-display text-2xl uppercase tracking-[0.08em] text-ice-blue">
+            {RECORD_BOOK_SECTIONS.coachingHeading}
           </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-white/10">
-                  <th className="pb-3 pr-4 text-left text-xs uppercase tracking-wider text-mountie-silver">
-                    Coach
-                  </th>
-                  <th className="pb-3 px-4 text-left text-xs uppercase tracking-wider text-mountie-silver">
-                    Years
-                  </th>
-                  <th className="pb-3 px-4 text-left text-xs uppercase tracking-wider text-mountie-silver">
-                    Record
-                  </th>
-                  <th className="pb-3 pl-4 text-left text-xs uppercase tracking-wider text-mountie-silver">
-                    Win %
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {coachingRecords.map((coach) => (
-                  <tr key={coach.coachName} className="border-b border-white/5">
-                    <td className="py-3 pr-4 font-medium text-mountie-white">
-                      {coach.coachName}
-                    </td>
-                    <td className="py-3 px-4 text-mountie-silver">
-                      {coach.yearsCoached}
-                    </td>
-                    <td className="py-3 px-4 text-mountie-silver">
-                      {coach.wins}-{coach.losses}
-                    </td>
-                    <td className="py-3 pl-4 text-mountie-silver">
-                      {coach.winPercentage ? `${coach.winPercentage.toFixed(1)}%` : "—"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <p className="mb-6 font-display text-lg uppercase tracking-[0.06em] text-mountie-white">
+            ‼️{RECORD_BOOK_SECTIONS.coachingSubtitle}‼️
+          </p>
+          <ul className="space-y-3">
+            {COACHING_RECORDS.map((coach) => (
+              <li
+                key={coach.coach}
+                className="rounded-xl border border-white/10 bg-gunmetal/20 px-5 py-4 text-base leading-7 text-mountie-silver"
+              >
+                <span className="font-semibold text-mountie-white">
+                  {coach.coach}
+                </span>{" "}
+                Record:{" "}
+                <span className="font-semibold text-ice-blue">
+                  {coach.record}
+                </span>{" "}
+                Years:{" "}
+                <span className="font-semibold text-mountie-white">
+                  {coach.years}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="rounded-2xl border border-ice-blue/30 bg-mountie-blue/10 p-8">
+          <h2 className="font-display text-2xl uppercase tracking-[0.08em] text-ice-blue">
+            1,000 Career Points Scorers
+          </h2>
+          <p className="mt-4 text-base leading-8 text-mountie-silver">
+            P-O 1,000 Point Scores — six Mountaineers have reached the 1,000-point
+            club, including two under Coach Anderson in the last six years.
+          </p>
+          <Link
+            href="/record-book/thousand-point-scorers"
+            className="mt-6 inline-block text-sm font-semibold uppercase tracking-[0.14em] text-ice-blue hover:underline"
+          >
+            View 1,000 Point Scorers →
+          </Link>
+        </section>
+
+        <section className="rounded-2xl border border-ice-blue/30 bg-mountie-blue/10 p-8">
+          <h2 className="font-display text-2xl uppercase tracking-[0.08em] text-ice-blue">
+            Award Winners Through The Years
+          </h2>
+          <p className="mt-4 text-base leading-8 text-mountie-silver">
+            Mountain League and program award winners, organized by season with
+            photos for each honoree.
+          </p>
+          <Link
+            href="/record-book/award-winners"
+            className="mt-6 inline-block text-sm font-semibold uppercase tracking-[0.14em] text-ice-blue hover:underline"
+          >
+            View Award Winners →
+          </Link>
         </section>
 
         {/* Team Records Categories */}

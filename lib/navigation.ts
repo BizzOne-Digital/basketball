@@ -16,6 +16,7 @@ export const MEET_THE_MOUNTIES_LINKS = SEASONS.map((season) => ({
 }));
 
 export const HEADER_MORE_LINKS = [
+  { href: "/central-pa-lions", label: "Central PA Lions AAU" },
   { href: "/sponsors", label: "2026 Sponsors" },
   { href: "/cash-bash", label: "Cash Bash" },
   { href: "/fundraising", label: "Fundraising" },
@@ -55,6 +56,7 @@ export const FOOTER_LINK_GROUPS = [
       { href: "/opponent-gyms", label: "Opponent Gym Addresses" },
       { href: "/record-book", label: "Record Book" },
       { href: "/alumni", label: "Alumni" },
+      { href: "/central-pa-lions", label: "Central PA Lions AAU" },
       { href: "/related-sites", label: "Related Sites" },
       { href: "/meet-the-mounties", label: "Team Pictures" },
       { href: "/news", label: "Game Articles" },

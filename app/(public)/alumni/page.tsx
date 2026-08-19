@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
+import { Alumni1976ChampionshipSection } from "@/components/public/Alumni1976ChampionshipSection";
+import { AlumniHallOfFameSection } from "@/components/public/AlumniHallOfFameSection";
 import { getPublishedAlumniSpotlights, getFeaturedAlumni } from "@/lib/data/alumni";
 import { ALUMNI_CONTENT } from "@/lib/content/mountie-program";
 import { PLACEHOLDERS, resolveImagePath } from "@/lib/images";
@@ -23,15 +25,9 @@ export default async function AlumniPage() {
       breadcrumbs={[{ label: "Home", href: "/" }, { label: "Alumni" }]}
     >
       <div className="space-y-16">
-        {/* 1976 Championship Section */}
-        <section className="rounded-2xl border border-ice-blue/30 bg-mountie-blue/10 p-8">
-          <h2 className="font-display text-3xl uppercase tracking-[0.08em] text-ice-blue">
-            {ALUMNI_CONTENT.headline}
-          </h2>
-          <p className="mt-4 text-lg leading-8 text-mountie-silver">
-            Celebrating 50 years of Mountie tradition since our 1976 League Championship team.
-          </p>
-        </section>
+        <Alumni1976ChampionshipSection />
+
+        <AlumniHallOfFameSection />
 
         {/* Alumni Spotlight */}
         <section className="grid gap-10 rounded-2xl border border-white/10 bg-gunmetal/20 p-8 lg:grid-cols-[1fr_1.2fr] lg:items-center">

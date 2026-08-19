@@ -5,6 +5,7 @@ import { NewsCard } from "@/components/public/NewsCard";
 import { SectionHeading } from "@/components/public/SectionHeading";
 import { SocialLinks } from "@/components/public/SocialLinks";
 import { CTABanner } from "@/components/public/CTABanner";
+import { CentralPaLionsHomeSection } from "@/components/public/CentralPaLionsHomeSection";
 import { EmptyState } from "@/components/public/EmptyState";
 import {
   JACK_BAILEY_QUOTE,
@@ -12,8 +13,8 @@ import {
   MAXPREPS_SCHEDULE_URL,
   PROGRAM_BRAND,
 } from "@/lib/content/mountie-program";
+import { HOME_MEDIA } from "@/lib/content/home-media";
 import { getPublishedPosts } from "@/lib/data/blog";
-import { PLACEHOLDERS } from "@/lib/images";
 import type { SiteSettingsDocument } from "@/types";
 
 interface HomePageContentProps {
@@ -24,6 +25,7 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
   const posts = await getPublishedPosts(3);
 
   const quickLinks = [
+    { href: "/central-pa-lions", label: "Central PA Lions AAU" },
     { href: "/meet-the-mounties", label: "Meet the Mounties" },
     { href: "/schedule", label: "Schedule & Results" },
     { href: "/coaching-staff", label: "Coaching Staff" },
@@ -36,13 +38,13 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
     <>
       <section className="relative min-h-[90vh] overflow-hidden border-b border-white/10">
         <Image
-          src={PLACEHOLDERS.hero}
-          alt="Mountaineer Basketball"
+          src="/images/home/hero-1976-champions.png"
+          alt="Honoring our alumni — Philipsburg-Osceola 1976 Mountain League Champions"
           fill
           priority
-          className="object-cover"
+          className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/90 to-midnight/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-midnight/85 via-midnight/55 to-midnight/25" />
         <div className="relative mx-auto flex min-h-[90vh] max-w-7xl flex-col justify-end px-4 py-24 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
             <div className="max-w-3xl space-y-6">
@@ -89,6 +91,48 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
 
       <section className="border-b border-white/10 py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
+          <SectionHeading
+            eyebrow="Mounties"
+            title="P-O Basketball"
+            description="Program highlights from the Mountaineer family."
+          />
+          <div className="mt-8 grid gap-8 lg:grid-cols-2">
+            <figure className="overflow-hidden rounded-2xl border border-white/10 bg-midnight">
+              <div className="relative aspect-[4/3]">
+                <Image
+                  src={HOME_MEDIA.featureImage.path}
+                  alt={HOME_MEDIA.featureImage.alt}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            </figure>
+            <div className="space-y-3">
+              <div className="overflow-hidden rounded-2xl border border-white/10 bg-midnight">
+                <video
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="aspect-video w-full bg-black"
+                >
+                  <source
+                    src={HOME_MEDIA.hypeVideo.path}
+                    type="video/mp4"
+                  />
+                  Your browser does not support embedded video playback.
+                </video>
+              </div>
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-mountie-white">
+                {HOME_MEDIA.hypeVideo.title}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-white/10 py-16">
+        <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <SectionHeading
               eyebrow="Schedule"
@@ -107,6 +151,8 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
           </div>
         </div>
       </section>
+
+      <CentralPaLionsHomeSection />
 
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
