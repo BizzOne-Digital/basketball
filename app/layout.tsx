@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Bebas_Neue, Inter } from "next/font/google";
 import { getSiteSettings } from "@/lib/data/settings";
 import { buildMetadataFromSeo } from "@/lib/seo/metadata";
@@ -29,7 +30,9 @@ export async function generateMetadata(): Promise<Metadata> {
   });
 }
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   const settings = await getSiteSettings();
   const jsonLd = buildOrganizationJsonLd(settings);
 
