@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "@/components/motion/useReducedMotion";
 import { cn } from "@/lib/utils/cn";
 
@@ -25,6 +26,31 @@ export function ImageReveal({
   priority,
 }: ImageRevealProps) {
   const reducedMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const [visible, setVisible] = useState(priority ?? false);
+
+  useEffect(() => {
+    if (priority) {
+      setVisible(true);
+      return;
+    }
+
+    if (inView) {
+      setVisible(true);
+      return;
+    }
+
+    const element = ref.current;
+    if (!element) {
+      return;
+    }
+
+    const rect = element.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      setVisible(true);
+    }
+  }, [priority, inView]);
 
   if (reducedMotion) {
     return (
@@ -45,10 +71,12 @@ export function ImageReveal({
 
   return (
     <motion.div
+      ref={ref}
       className={cn("relative w-full max-w-full overflow-hidden", className)}
       initial={{ clipPath: "inset(100% 0 0 0)" }}
-      whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-      viewport={{ once: true, margin: "-60px" }}
+      animate={{
+        clipPath: visible ? "inset(0% 0 0 0)" : "inset(100% 0 0 0)",
+      }}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
     >
       <Image

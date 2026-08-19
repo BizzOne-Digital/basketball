@@ -51,6 +51,7 @@ export function PageHero({
 
       <div className="relative mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-32">
         <SectionReveal
+          immediate
           className={cn(
             "max-w-3xl space-y-6",
             centered && "mx-auto text-center",
