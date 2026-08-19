@@ -25,6 +25,7 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
   const posts = await getPublishedPosts(3);
 
   const quickLinks = [
+    { href: "/join-our-team", label: "Join Our Team" },
     { href: "/central-pa-lions", label: "Central PA Lions AAU" },
     { href: "/meet-the-mounties", label: "Meet the Mounties" },
     { href: "/schedule", label: "Schedule & Results" },

@@ -89,17 +89,19 @@ export function Header({ settings }: HeaderProps) {
                 </button>
               </div>
               {mountiesOpen ? (
-                <div className="absolute left-0 top-full z-50 mt-2 min-w-[220px] rounded-2xl border border-white/10 bg-midnight p-2 shadow-xl">
-                  {MEET_THE_MOUNTIES_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMountiesOpen(false)}
-                      className="block rounded-xl px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-mountie-silver transition-colors hover:bg-white/5 hover:text-ice-blue"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                <div className="absolute left-0 top-full z-50 min-w-[220px] pt-2">
+                  <div className="rounded-2xl border border-white/10 bg-midnight p-2 shadow-xl">
+                    {MEET_THE_MOUNTIES_LINKS.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMountiesOpen(false)}
+                        className="block rounded-xl px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-mountie-silver transition-colors hover:bg-white/5 hover:text-ice-blue"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>
@@ -122,21 +124,24 @@ export function Header({ settings }: HeaderProps) {
                 <ChevronDown size={14} className={cn(moreOpen && "rotate-180")} />
               </button>
               {moreOpen ? (
-                <div className="absolute right-0 top-full z-50 mt-2 min-w-[220px] rounded-2xl border border-white/10 bg-midnight p-2 shadow-xl">
-                  {HEADER_MORE_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={cn(
-                        "block rounded-xl px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] transition-colors hover:bg-white/5 hover:text-ice-blue",
-                        pathname === link.href
-                          ? "text-ice-blue"
-                          : "text-mountie-silver",
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                <div className="absolute right-0 top-full z-50 min-w-[220px] pt-2">
+                  <div className="rounded-2xl border border-white/10 bg-midnight p-2 shadow-xl">
+                    {HEADER_MORE_LINKS.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMoreOpen(false)}
+                        className={cn(
+                          "block rounded-xl px-4 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] transition-colors hover:bg-white/5 hover:text-ice-blue",
+                          pathname === link.href
+                            ? "text-ice-blue"
+                            : "text-mountie-silver",
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>

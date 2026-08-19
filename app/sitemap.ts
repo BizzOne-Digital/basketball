@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/schedule",
     "/coaching-staff",
     "/team-philosophy",
+    "/join-our-team",
     "/support",
     "/sponsors",
     "/cash-bash",

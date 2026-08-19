@@ -8,6 +8,7 @@ import {
   type ContactSubmissionInput,
 } from "@/lib/validation/common";
 import type { ActionResult } from "@/lib/actions/admin/shared";
+import { sendContactNotificationEmail } from "@/lib/email/send-contact-email";
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 3;
@@ -80,6 +81,12 @@ export async function submitContactForm(
       consent: parsed.data.consent,
       read: false,
     });
+
+    try {
+      await sendContactNotificationEmail(parsed.data);
+    } catch (error) {
+      console.error("Failed to send contact notification email:", error);
+    }
 
     return {
       success: true,

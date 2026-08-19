@@ -81,9 +81,9 @@ const SEASON_GAME_ACTIONS: Record<string, string[]> = {
       `/images/roster/2020-21/game-actions/action-${String(index + 1).padStart(2, "0")}.png`,
   ),
   "2025-26": Array.from(
-    { length: 9 },
+    { length: 8 },
     (_, index) =>
-      `/images/roster/2025-26/game-actions/action-${String(index + 1).padStart(2, "0")}.png`,
+      `/images/roster/2025-26/game-actions/action-${String(index + 1).padStart(2, "0")}.jpg`,
   ),
 };
 

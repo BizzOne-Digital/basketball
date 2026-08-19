@@ -5,6 +5,7 @@ export const HEADER_NAV_LINKS = [
   { href: "/schedule", label: "Schedule" },
   { href: "/coaching-staff", label: "Coaching Staff" },
   { href: "/team-philosophy", label: "Philosophy" },
+  { href: "/join-our-team", label: "Join Our Team" },
   { href: "/support", label: "Support" },
 ] as const;
 
@@ -35,6 +36,7 @@ export const FOOTER_LINK_GROUPS = [
     title: "Program",
     links: [
       { href: "/meet-the-mounties", label: "Meet the Mounties" },
+      { href: "/join-our-team", label: "Join Our Team" },
       { href: "/schedule", label: "Schedule & Results" },
       { href: "/coaching-staff", label: "Coaching Staff" },
       { href: "/team-philosophy", label: "Team Philosophy" },
