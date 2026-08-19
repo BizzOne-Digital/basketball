@@ -43,7 +43,7 @@ export default async function ServicesPage() {
           { label: "Home", href: "/" },
           { label: "Programs" },
         ]}
-        image={page?.sections[0]?.image}
+        hideBackground
       />
 
       <section className="py-20">

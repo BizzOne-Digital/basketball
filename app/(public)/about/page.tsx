@@ -4,7 +4,6 @@ import { PageHero } from "@/components/public/PageHero";
 import { getPublishedPageByKey } from "@/lib/data/pages";
 import { getSiteSettings } from "@/lib/data/settings";
 import { getPublicPageMetadata } from "@/lib/seo/page";
-import { PLACEHOLDERS } from "@/lib/images";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/jsonld";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -45,10 +44,7 @@ export default async function AboutPage() {
           { label: "Home", href: "/" },
           { label: "About" },
         ]}
-        image={{
-          path: PLACEHOLDERS.hero,
-          alt: "Mountie Basketball",
-        }}
+        hideBackground
         ctaLabel="Meet The Team"
         ctaUrl="/team"
       />

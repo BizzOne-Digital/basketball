@@ -23,7 +23,6 @@ export default function CentralPaLionsPage() {
     <ProgramPageShell
       title={CENTRAL_PA_LIONS_CONTENT.title}
       description="Youth Basketball Academy — Grades K-12"
-      image={CENTRAL_PA_LIONS_CONTENT.heroImage}
       breadcrumbs={[
         { label: "Home", href: "/" },
         { label: "Central PA Lions AAU" },

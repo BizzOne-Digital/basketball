@@ -33,7 +33,7 @@ export default async function ShopPage() {
           { label: "Home", href: "/" },
           { label: "Shop" },
         ]}
-        image={page?.sections[0]?.image}
+        hideBackground
       />
 
       <section className="py-20">

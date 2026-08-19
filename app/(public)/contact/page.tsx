@@ -37,7 +37,7 @@ export default async function ContactPage() {
           { label: "Home", href: "/" },
           { label: "Contact" },
         ]}
-        image={page?.sections[0]?.image}
+        hideBackground
       />
 
       <section className="py-20">

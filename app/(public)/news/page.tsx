@@ -43,7 +43,7 @@ export default async function NewsPage() {
           { label: "Home", href: "/" },
           { label: "News" },
         ]}
-        image={page?.sections[0]?.image}
+        hideBackground
       />
 
       <section className="py-20">
