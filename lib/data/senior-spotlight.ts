@@ -16,6 +16,7 @@ const SEASON_FOLDERS: Record<string, string> = {
   "2020-21": "Senior Spotlight 2020-2021",
   "2021-22": "Senior Pictures 2021-2022",
   "2022-23": "Senior Spotlight 2022-2023/Senior Pictures",
+  "2023-24": "Senior Spotlight 2023-24 Season",
   "2025-26": "Senior Spotlight 2025-26 Season",
 };
 
@@ -23,6 +24,7 @@ const SEASON_LABELS: Record<string, string> = {
   "2020-21": "2020-2021 Season",
   "2021-22": "2021-2022 Season",
   "2022-23": "2022-2023 Season",
+  "2023-24": "2023-2024 Season",
   "2025-26": "2025-2026 Season",
 };
 
