@@ -6,15 +6,20 @@ export const HEADER_NAV_LINKS = [
   { href: "/coaching-staff", label: "Coaching Staff" },
   { href: "/team-philosophy", label: "Philosophy" },
   { href: "/join-our-team", label: "Join Our Team" },
+  { href: "/mountie-gear", label: "Mountie Gear" },
+  { href: "/po-jr-high-basketball", label: "Jr High" },
   { href: "/support", label: "Support" },
 ] as const;
 
 export const MEET_THE_MOUNTIES_HREF = "/meet-the-mounties";
 
-export const MEET_THE_MOUNTIES_LINKS = SEASONS.map((season) => ({
-  href: seasonHref(season.slug),
-  label: season.label,
-}));
+export const MEET_THE_MOUNTIES_LINKS = [
+  { href: "/meet-the-mounties/senior-spotlight", label: "Senior Spotlight" },
+  ...SEASONS.map((season) => ({
+    href: seasonHref(season.slug),
+    label: season.label,
+  })),
+];
 
 export const HEADER_MORE_LINKS = [
   { href: "/central-pa-lions", label: "Central PA Lions AAU" },
@@ -37,6 +42,8 @@ export const FOOTER_LINK_GROUPS = [
     links: [
       { href: "/meet-the-mounties", label: "Meet the Mounties" },
       { href: "/join-our-team", label: "Join Our Team" },
+      { href: "/mountie-gear", label: "Mountie Gear" },
+      { href: "/po-jr-high-basketball", label: "PO Jr High Basketball" },
       { href: "/schedule", label: "Schedule & Results" },
       { href: "/coaching-staff", label: "Coaching Staff" },
       { href: "/team-philosophy", label: "Team Philosophy" },

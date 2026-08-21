@@ -5,7 +5,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { GalleryGrid } from "@/components/public/GalleryGrid";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { SeasonRosterGrid } from "@/components/public/SeasonRosterGrid";
+import { SeniorSpotlightGallery } from "@/components/public/SeniorSpotlightGallery";
 import { getSeasonRoster } from "@/lib/content/season-rosters";
+import { getSeniorSpotlightForSeason } from "@/lib/data/senior-spotlight";
 import {
   getSeason,
   getSeasonGameActions,
@@ -55,6 +57,7 @@ export default async function SeasonDetailPage({
 
   const roster = getSeasonRoster(season.slug);
   const gameActions = getSeasonGameActions(season.slug);
+  const seniorSpotlight = getSeniorSpotlightForSeason(season.slug);
   const { previous, next } = getSeasonNeighbours(season.slug);
 
   return (
@@ -87,6 +90,15 @@ export default async function SeasonDetailPage({
             Game Actions
           </h2>
           <GalleryGrid images={gameActions} columns={3} />
+        </div>
+      ) : null}
+
+      {seniorSpotlight.length > 0 ? (
+        <div className="mt-16">
+          <h2 className="mb-8 font-display text-3xl uppercase tracking-[0.12em] text-mountie-white sm:text-4xl">
+            Senior Spotlight
+          </h2>
+          <SeniorSpotlightGallery photos={seniorSpotlight} />
         </div>
       ) : null}
 

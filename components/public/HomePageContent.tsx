@@ -26,6 +26,8 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
 
   const quickLinks = [
     { href: "/join-our-team", label: "Join Our Team" },
+    { href: "/mountie-gear", label: "Mountie Gear" },
+    { href: "/po-jr-high-basketball", label: "PO Jr High Basketball" },
     { href: "/central-pa-lions", label: "Central PA Lions AAU" },
     { href: "/meet-the-mounties", label: "Meet the Mounties" },
     { href: "/schedule", label: "Schedule & Results" },
