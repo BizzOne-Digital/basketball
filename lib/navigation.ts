@@ -1,14 +1,12 @@
 import { SEASONS, seasonHref } from "@/lib/content/seasons";
 
 export const HEADER_NAV_LINKS = [
-  { href: "/", label: "Home" },
   { href: "/schedule", label: "Schedule" },
   { href: "/coaching-staff", label: "Coaching Staff" },
   { href: "/team-philosophy", label: "Philosophy" },
   { href: "/join-our-team", label: "Join Our Team" },
   { href: "/mountie-gear", label: "Mountie Gear" },
   { href: "/po-jr-high-basketball", label: "Jr High" },
-  { href: "/support", label: "Support" },
 ] as const;
 
 export const MEET_THE_MOUNTIES_HREF = "/meet-the-mounties";
@@ -22,6 +20,7 @@ export const MEET_THE_MOUNTIES_LINKS = [
 ];
 
 export const HEADER_MORE_LINKS = [
+  { href: "/support", label: "Support" },
   { href: "/central-pa-lions", label: "Central PA Lions AAU" },
   { href: "/sponsors", label: "2026 Sponsors" },
   { href: "/cash-bash", label: "Cash Bash" },
