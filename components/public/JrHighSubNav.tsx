@@ -2,18 +2,23 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { JR_HIGH_NAV_LINKS } from "@/lib/content/jr-high-basketball";
+import { getJrHighNavLinks, type JrHighSeason } from "@/lib/content/jr-high-basketball";
 import { cn } from "@/lib/utils/cn";
 
-export function JrHighSubNav() {
+interface JrHighSubNavProps {
+  season: JrHighSeason;
+}
+
+export function JrHighSubNav({ season }: JrHighSubNavProps) {
   const pathname = usePathname();
+  const links = getJrHighNavLinks(season);
 
   return (
     <nav
       aria-label="Junior high sections"
       className="mb-10 flex flex-wrap gap-2 border-b border-white/10 pb-4"
     >
-      {JR_HIGH_NAV_LINKS.map((link) => {
+      {links.map((link) => {
         const active = pathname === link.href;
 
         return (

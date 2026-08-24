@@ -1,43 +1,57 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { JrHighSubNav } from "@/components/public/JrHighSubNav";
-import { JR_HIGH_BASKETBALL } from "@/lib/content/jr-high-basketball";
+import {
+  JR_HIGH_DESCRIPTION,
+  JR_HIGH_SEASONS,
+  JR_HIGH_TITLE,
+  jrHighSeasonHref,
+} from "@/lib/content/jr-high-basketball";
 
 export const metadata: Metadata = {
-  title: "PO Jr High Basketball",
-  description:
-    "Philipsburg-Osceola Mountaineer junior high boys basketball team picture.",
+  title: JR_HIGH_TITLE,
+  description: JR_HIGH_DESCRIPTION,
 };
 
 export default function PoJrHighBasketballPage() {
-  const { title, description, seasonLabel, images } = JR_HIGH_BASKETBALL;
-
   return (
     <ProgramPageShell
-      title={title}
-      description={description}
+      title={JR_HIGH_TITLE}
+      description={JR_HIGH_DESCRIPTION}
       breadcrumbs={[
         { label: "Home", href: "/" },
-        { label: title },
+        { label: JR_HIGH_TITLE },
       ]}
     >
-      <JrHighSubNav />
-
-      <div>
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-ice-blue">
-          {seasonLabel}
-        </p>
-        <div className="overflow-hidden rounded-3xl border border-white/10 bg-gunmetal/20">
-          <Image
-            src={images.teamPicture}
-            alt={`${seasonLabel} PO Jr High Basketball team picture`}
-            width={1600}
-            height={900}
-            priority
-            className="h-auto w-full object-contain"
-          />
-        </div>
+      <div className="mx-auto max-w-3xl space-y-3">
+        {JR_HIGH_SEASONS.map((season) => (
+          <article
+            key={season.slug}
+            className="rounded-xl border border-white/10 bg-gunmetal/20 px-5 py-4 transition-colors hover:border-ice-blue/30"
+          >
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ice-blue">
+                  {season.current ? "Current Season" : season.years}
+                </p>
+                <h2 className="mt-1 font-display text-xl uppercase tracking-[0.08em] text-mountie-white sm:text-2xl">
+                  {season.label}
+                </h2>
+                <p className="mt-2 text-sm leading-6 text-mountie-silver">
+                  {season.description}
+                </p>
+              </div>
+              <Link
+                href={jrHighSeasonHref(season.slug)}
+                className="inline-flex shrink-0 items-center gap-2 self-start text-xs font-semibold uppercase tracking-[0.16em] text-ice-blue hover:text-mountie-white sm:self-center"
+              >
+                View Season
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </article>
+        ))}
       </div>
     </ProgramPageShell>
   );

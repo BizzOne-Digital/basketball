@@ -8,6 +8,7 @@ import {
   gymHref,
 } from "@/lib/content/opponent-gym-galleries";
 import { SITE_URL } from "@/lib/seo/metadata";
+import { JR_HIGH_SEASONS } from "@/lib/content/jr-high-basketball";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [services, posts, products, gymGalleries] = await Promise.all([
@@ -26,8 +27,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/join-our-team",
     "/mountie-gear",
     "/po-jr-high-basketball",
-    "/po-jr-high-basketball/team-schedule",
-    "/po-jr-high-basketball/team-roster",
+    ...JR_HIGH_SEASONS.flatMap((season) => [
+      `/po-jr-high-basketball/${season.slug}`,
+      `/po-jr-high-basketball/${season.slug}/team-schedule`,
+      `/po-jr-high-basketball/${season.slug}/team-roster`,
+      ...(season.hasPlayersTab
+        ? [`/po-jr-high-basketball/${season.slug}/players-pictures`]
+        : []),
+    ]),
     "/meet-the-mounties/senior-spotlight",
     "/support",
     "/sponsors",
