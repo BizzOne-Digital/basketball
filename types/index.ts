@@ -256,6 +256,27 @@ export interface ContactSubmissionDocument {
   honeypot?: string;
 }
 
+export interface AlumniSignupSubmissionDocument {
+  name: string;
+  email: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  cellPhone?: string;
+  graduationYear?: string;
+  sportsPlayed: string;
+  gender?: string;
+  teammatesInContact?: string;
+  degreeEarned?: string;
+  occupation?: string;
+  company?: string;
+  favoriteMemory?: string;
+  consent: boolean;
+  read: boolean;
+  honeypot?: string;
+}
+
 export interface AdminUserDocument {
   email: string;
   passwordHash: string;

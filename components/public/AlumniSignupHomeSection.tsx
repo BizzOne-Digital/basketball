@@ -1,17 +1,14 @@
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
 import { SectionHeading } from "@/components/public/SectionHeading";
 import {
-  ALUMNI_SIGNUP_FORM_URL,
+  ALUMNI_SIGNUP_FORM_PATH,
   ALUMNI_SIGNUP_HOME_CONTENT,
 } from "@/lib/content/alumni-signup";
 
 function AlumniFormLink({ className }: { className?: string }) {
   return (
     <Link
-      href={ALUMNI_SIGNUP_FORM_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={ALUMNI_SIGNUP_FORM_PATH}
       className={
         className ??
         "inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-ice-blue hover:underline"
@@ -19,7 +16,6 @@ function AlumniFormLink({ className }: { className?: string }) {
     >
       <span aria-hidden>👉</span>
       {ALUMNI_SIGNUP_HOME_CONTENT.formLinkLabel}
-      <ExternalLink size={16} className="shrink-0 opacity-80" />
     </Link>
   );
 }

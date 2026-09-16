@@ -16,6 +16,10 @@ export {
   default as ContactSubmission,
   type ContactSubmissionDoc,
 } from "./ContactSubmission";
+export {
+  default as AlumniSignupSubmission,
+  type AlumniSignupSubmissionDoc,
+} from "./AlumniSignupSubmission";
 export { default as StoredUpload, type StoredUploadDoc } from "./StoredUpload";
 export { default as PlayerRoster, type PlayerRosterDoc } from "./PlayerRoster";
 export { default as Sponsor, type SponsorDoc } from "./Sponsor";

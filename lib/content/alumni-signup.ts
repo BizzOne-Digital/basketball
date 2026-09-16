@@ -1,6 +1,5 @@
-/** External alumni registration form (update when the program’s official form URL is available). */
-export const ALUMNI_SIGNUP_FORM_URL =
-  "https://lehmanathletics.com/sb_output.aspx?form=9";
+/** On-site alumni registration form. */
+export const ALUMNI_SIGNUP_FORM_PATH = "/alumni/sign-up";
 
 export const ALUMNI_SIGNUP_HOME_CONTENT = {
   eyebrow: "Alumni",
