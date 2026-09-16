@@ -5,6 +5,7 @@ import { NewsCard } from "@/components/public/NewsCard";
 import { SectionHeading } from "@/components/public/SectionHeading";
 import { SocialLinks } from "@/components/public/SocialLinks";
 import { CTABanner } from "@/components/public/CTABanner";
+import { AlumniSignupHomeSection } from "@/components/public/AlumniSignupHomeSection";
 import { CentralPaLionsHomeSection } from "@/components/public/CentralPaLionsHomeSection";
 import { EmptyState } from "@/components/public/EmptyState";
 import {
@@ -91,6 +92,8 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
           </div>
         </div>
       </section>
+
+      <AlumniSignupHomeSection />
 
       <section className="border-b border-white/10 py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
