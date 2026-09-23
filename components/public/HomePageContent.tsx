@@ -104,7 +104,7 @@ export async function HomePageContent({ settings }: HomePageContentProps) {
           />
           <div className="mt-8 grid gap-8 lg:grid-cols-2">
             <figure className="overflow-hidden rounded-2xl border border-white/10 bg-midnight">
-              <div className="relative aspect-[4/3]">
+              <div className="relative aspect-[3/4] sm:aspect-[4/5] lg:aspect-[3/4]">
                 <Image
                   src={HOME_MEDIA.featureImage.path}
                   alt={HOME_MEDIA.featureImage.alt}
