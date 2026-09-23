@@ -15,7 +15,7 @@ export function CentralPaLionsHomeSection() {
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,22rem)_1fr] lg:items-start">
           <figure className="w-full overflow-hidden rounded-2xl border border-white/10 bg-midnight">
-            <div className="relative aspect-[1024/555] w-full">
+            <div className="relative aspect-[16/9] w-full">
               <Image
                 src={logo}
                 alt="Central PA Lions Academy logo"

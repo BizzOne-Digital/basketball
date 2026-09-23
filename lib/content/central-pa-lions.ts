@@ -3,7 +3,7 @@ export const CENTRAL_PA_LIONS_WEBSITE_URL = "https://www.centralpalions.com/abou
 export const CENTRAL_PA_LIONS_CONTENT = {
   title: "Central PA Lions AAU",
   shortTitle: "Central PA Lions Academy",
-  logo: "/images/sponsors/central-pa-lions.png",
+  logo: "/images/sponsors/central-pa-lions.jpg",
   heroImage: {
     path: "/images/central-pa-lions/hero.png",
     alt: "Central PA Lions youth basketball team huddle",
