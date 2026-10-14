@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-label="court placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#04101F"/>
+      <stop offset="55%" stop-color="#0B2F63"/>
+      <stop offset="100%" stop-color="#343A40"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <rect x="80" y="620" width="1040" height="4" fill="#5BB9FF" opacity="0.8"/>
+  <circle cx="600" cy="420" r="120" fill="none" stroke="#5BB9FF" stroke-width="4" opacity="0.5"/>
+  <text x="600" y="430" text-anchor="middle" fill="#F7F9FC" font-family="Arial, sans-serif" font-size="42" letter-spacing="6">MOUNTIE</text>
+  <text x="600" y="500" text-anchor="middle" fill="#5BB9FF" font-family="Arial, sans-serif" font-size="22" letter-spacing="8">COURT</text>
+</svg>
