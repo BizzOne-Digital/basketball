@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { SectionRenderer } from "@/components/cms/SectionRenderer";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 import { CTABanner } from "@/components/public/CTABanner";
+import { safeStaticParams } from "@/lib/db/safe-static-params";
 import { getServiceBySlug, getPublishedServices } from "@/lib/data/services";
 import { getSiteSettings } from "@/lib/data/settings";
 import { buildMetadataFromSeo } from "@/lib/seo/metadata";
@@ -14,7 +15,7 @@ interface ServiceDetailPageProps {
 }
 
 export async function generateStaticParams() {
-  const services = await getPublishedServices();
+  const services = await safeStaticParams(() => getPublishedServices());
   return services.map((service) => ({ slug: service.slug }));
 }
 

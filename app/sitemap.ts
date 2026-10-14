@@ -11,12 +11,22 @@ import { SITE_URL } from "@/lib/seo/metadata";
 import { JR_HIGH_SEASONS } from "@/lib/content/jr-high-basketball";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [services, posts, products, gymGalleries] = await Promise.all([
-    getPublishedServices(),
-    getPublishedPosts(),
-    getPublishedProducts(),
-    getOpponentGymGalleries(),
-  ]);
+  const gymGalleries = await getOpponentGymGalleries();
+  let services: Awaited<ReturnType<typeof getPublishedServices>> = [];
+  let posts: Awaited<ReturnType<typeof getPublishedPosts>> = [];
+  let products: Awaited<ReturnType<typeof getPublishedProducts>> = [];
+
+  try {
+    [services, posts, products] = await Promise.all([
+      getPublishedServices(),
+      getPublishedPosts(),
+      getPublishedProducts(),
+    ]);
+  } catch {
+    console.warn(
+      "Database unavailable while generating sitemap; omitting CMS-driven URLs.",
+    );
+  }
 
   const staticRoutes = [
     "",

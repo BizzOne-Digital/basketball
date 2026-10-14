@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { connectDB } from "@/lib/db/connect";
+import { withDatabase } from "@/lib/db/with-database";
 import TeamMember from "@/models/TeamMember";
 import type { TeamMemberDocument } from "@/types";
 
@@ -19,12 +19,12 @@ function serializeMember(doc: TeamMemberDocument): TeamMemberDocument {
 
 export const getPublishedTeamMembers = cache(
   async (): Promise<TeamMemberDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const members = await TeamMember.find({ status: "published" })
+        .sort({ order: 1, name: 1 })
+        .lean<TeamMemberDocument[]>();
 
-    const members = await TeamMember.find({ status: "published" })
-      .sort({ order: 1, name: 1 })
-      .lean<TeamMemberDocument[]>();
-
-    return members.map(serializeMember);
+      return members.map(serializeMember);
+    }, []);
   },
 );

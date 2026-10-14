@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 import { RichTextRenderer } from "@/components/public/RichTextRenderer";
+import { safeStaticParams } from "@/lib/db/safe-static-params";
 import { getPostBySlug, getPublishedPosts } from "@/lib/data/blog";
 import { getSiteSettings } from "@/lib/data/settings";
 import { buildMetadataFromSeo } from "@/lib/seo/metadata";
@@ -18,7 +19,7 @@ interface NewsDetailPageProps {
 }
 
 export async function generateStaticParams() {
-  const posts = await getPublishedPosts();
+  const posts = await safeStaticParams(() => getPublishedPosts());
   return posts.map((post) => ({ slug: post.slug }));
 }
 

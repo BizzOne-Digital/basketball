@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { connectDB } from "@/lib/db/connect";
+import { withDatabase } from "@/lib/db/with-database";
 import GalleryCategory from "@/models/GalleryCategory";
 import GalleryImage from "@/models/GalleryImage";
 import type { GalleryCategoryDocument, GalleryImageDocument } from "@/types";
@@ -32,64 +32,64 @@ function serializeImage(doc: GalleryImageDocument): GalleryImageDocument {
 
 export const getCategories = cache(
   async (): Promise<GalleryCategoryDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const categories = await GalleryCategory.find({ status: "published" })
+        .sort({ order: 1, name: 1 })
+        .lean<GalleryCategoryDocument[]>();
 
-    const categories = await GalleryCategory.find({ status: "published" })
-      .sort({ order: 1, name: 1 })
-      .lean<GalleryCategoryDocument[]>();
-
-    return categories.map(serializeCategory);
+      return categories.map(serializeCategory);
+    }, []);
   },
 );
 
 export const getImagesByCategory = cache(
   async (categorySlug: string): Promise<GalleryImageDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const images = await GalleryImage.find({
+        categorySlug: categorySlug.trim().toLowerCase(),
+        status: "published",
+      })
+        .sort({ order: 1, createdAt: -1 })
+        .lean<GalleryImageDocument[]>();
 
-    const images = await GalleryImage.find({
-      categorySlug: categorySlug.trim().toLowerCase(),
-      status: "published",
-    })
-      .sort({ order: 1, createdAt: -1 })
-      .lean<GalleryImageDocument[]>();
-
-    return images.map(serializeImage);
+      return images.map(serializeImage);
+    }, []);
   },
 );
 
 export const getFeaturedImages = cache(
   async (limit = 8): Promise<GalleryImageDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const images = await GalleryImage.find({
+        status: "published",
+        featured: true,
+      })
+        .sort({ order: 1, createdAt: -1 })
+        .limit(limit)
+        .lean<GalleryImageDocument[]>();
 
-    const images = await GalleryImage.find({
-      status: "published",
-      featured: true,
-    })
-      .sort({ order: 1, createdAt: -1 })
-      .limit(limit)
-      .lean<GalleryImageDocument[]>();
+      if (images.length >= limit) {
+        return images.map(serializeImage);
+      }
 
-    if (images.length >= limit) {
-      return images.map(serializeImage);
-    }
+      const fallback = await GalleryImage.find({ status: "published" })
+        .sort({ order: 1, createdAt: -1 })
+        .limit(limit)
+        .lean<GalleryImageDocument[]>();
 
-    const fallback = await GalleryImage.find({ status: "published" })
-      .sort({ order: 1, createdAt: -1 })
-      .limit(limit)
-      .lean<GalleryImageDocument[]>();
-
-    return fallback.map(serializeImage);
+      return fallback.map(serializeImage);
+    }, []);
   },
 );
 
 export const getAllPublishedImages = cache(
   async (): Promise<GalleryImageDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const images = await GalleryImage.find({ status: "published" })
+        .sort({ order: 1, createdAt: -1 })
+        .lean<GalleryImageDocument[]>();
 
-    const images = await GalleryImage.find({ status: "published" })
-      .sort({ order: 1, createdAt: -1 })
-      .lean<GalleryImageDocument[]>();
-
-    return images.map(serializeImage);
+      return images.map(serializeImage);
+    }, []);
   },
 );

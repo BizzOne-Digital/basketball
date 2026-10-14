@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/public/Breadcrumbs";
 import { CTABanner } from "@/components/public/CTABanner";
 import { RichTextRenderer } from "@/components/public/RichTextRenderer";
+import { safeStaticParams } from "@/lib/db/safe-static-params";
 import { getProductBySlug, getPublishedProducts } from "@/lib/data/products";
 import { getSiteSettings } from "@/lib/data/settings";
 import { buildMetadataFromSeo } from "@/lib/seo/metadata";
@@ -20,7 +21,7 @@ interface ProductDetailPageProps {
 }
 
 export async function generateStaticParams() {
-  const products = await getPublishedProducts();
+  const products = await safeStaticParams(() => getPublishedProducts());
   return products.map((product) => ({ slug: product.slug }));
 }
 

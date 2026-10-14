@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { connectDB } from "@/lib/db/connect";
+import { withDatabase } from "@/lib/db/with-database";
 import FAQ from "@/models/FAQ";
 import type { FAQDocument } from "@/types";
 
@@ -16,12 +16,12 @@ function serializeFaq(doc: FAQDocument): FAQDocument {
 
 export const getPublishedFAQs = cache(
   async (): Promise<FAQDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const faqs = await FAQ.find({ status: "published" })
+        .sort({ category: 1, order: 1 })
+        .lean<FAQDocument[]>();
 
-    const faqs = await FAQ.find({ status: "published" })
-      .sort({ category: 1, order: 1 })
-      .lean<FAQDocument[]>();
-
-    return faqs.map(serializeFaq);
+      return faqs.map(serializeFaq);
+    }, []);
   },
 );

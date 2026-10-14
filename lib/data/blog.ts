@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { connectDB } from "@/lib/db/connect";
+import { withDatabase } from "@/lib/db/with-database";
 import BlogPost from "@/models/BlogPost";
 import type { BlogPostDocument } from "@/types";
 
@@ -20,36 +20,36 @@ function serializePost(doc: BlogPostDocument): BlogPostDocument {
 
 export const getPublishedPosts = cache(
   async (limit?: number): Promise<BlogPostDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      let query = BlogPost.find({ status: "published" }).sort({
+        publishedAt: -1,
+        createdAt: -1,
+      });
 
-    let query = BlogPost.find({ status: "published" }).sort({
-      publishedAt: -1,
-      createdAt: -1,
-    });
+      if (limit) {
+        query = query.limit(limit);
+      }
 
-    if (limit) {
-      query = query.limit(limit);
-    }
-
-    const posts = await query.lean<BlogPostDocument[]>();
-    return posts.map(serializePost);
+      const posts = await query.lean<BlogPostDocument[]>();
+      return posts.map(serializePost);
+    }, []);
   },
 );
 
 export const getPostBySlug = cache(
   async (slug: string): Promise<BlogPostDocument | null> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const post = await BlogPost.findOne({
+        slug: slug.trim().toLowerCase(),
+        status: "published",
+      }).lean<BlogPostDocument>();
 
-    const post = await BlogPost.findOne({
-      slug: slug.trim().toLowerCase(),
-      status: "published",
-    }).lean<BlogPostDocument>();
+      if (!post) {
+        return null;
+      }
 
-    if (!post) {
-      return null;
-    }
-
-    return serializePost(post);
+      return serializePost(post);
+    }, null);
   },
 );
 

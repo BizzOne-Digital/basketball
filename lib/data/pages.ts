@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { connectDB } from "@/lib/db/connect";
+import { withDatabase } from "@/lib/db/with-database";
 import Page from "@/models/Page";
 import type { ContentStatus, PageDocument } from "@/types";
 
@@ -19,23 +19,23 @@ export const getPageByKey = cache(
     key: string,
     options: { status?: ContentStatus } = {},
   ): Promise<PageDocument | null> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const query: Record<string, unknown> = {
+        key: key.trim().toLowerCase(),
+      };
 
-    const query: Record<string, unknown> = {
-      key: key.trim().toLowerCase(),
-    };
+      if (options.status) {
+        query.status = options.status;
+      }
 
-    if (options.status) {
-      query.status = options.status;
-    }
+      const page = await Page.findOne(query).lean<PageDocument>();
 
-    const page = await Page.findOne(query).lean<PageDocument>();
+      if (!page) {
+        return null;
+      }
 
-    if (!page) {
-      return null;
-    }
-
-    return serializePage(page);
+      return serializePage(page);
+    }, null);
   },
 );
 
@@ -50,22 +50,22 @@ export const getPageBySlug = cache(
     slug: string,
     options: { status?: ContentStatus } = {},
   ): Promise<PageDocument | null> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const query: Record<string, unknown> = {
+        slug: slug.trim().toLowerCase(),
+      };
 
-    const query: Record<string, unknown> = {
-      slug: slug.trim().toLowerCase(),
-    };
+      if (options.status) {
+        query.status = options.status;
+      }
 
-    if (options.status) {
-      query.status = options.status;
-    }
+      const page = await Page.findOne(query).lean<PageDocument>();
 
-    const page = await Page.findOne(query).lean<PageDocument>();
+      if (!page) {
+        return null;
+      }
 
-    if (!page) {
-      return null;
-    }
-
-    return serializePage(page);
+      return serializePage(page);
+    }, null);
   },
 );

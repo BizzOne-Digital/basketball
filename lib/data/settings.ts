@@ -41,15 +41,23 @@ function serializeSettings(doc: SiteSettingsDoc): SiteSettingsDocument {
 
 export const getSiteSettings = cache(
   async (): Promise<SiteSettingsDocument> => {
-    await connectDB();
+    try {
+      await connectDB();
 
-    const settings = await SiteSettings.findOneAndUpdate(
-      { singletonKey: "default" },
-      { $setOnInsert: DEFAULT_SETTINGS },
-      { returnDocument: "after", upsert: true, setDefaultsOnInsert: true },
-    );
+      const settings = await SiteSettings.findOneAndUpdate(
+        { singletonKey: "default" },
+        { $setOnInsert: DEFAULT_SETTINGS },
+        { returnDocument: "after", upsert: true, setDefaultsOnInsert: true },
+      );
 
-    return serializeSettings(settings);
+      return serializeSettings(settings);
+    } catch (error) {
+      console.warn(
+        "Using default site settings (database unavailable).",
+        error,
+      );
+      return DEFAULT_SETTINGS;
+    }
   },
 );
 

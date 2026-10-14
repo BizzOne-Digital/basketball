@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { connectDB } from "@/lib/db/connect";
+import { withDatabase } from "@/lib/db/with-database";
 import Service from "@/models/Service";
 import type { ServiceDocument } from "@/types";
 
@@ -27,29 +27,29 @@ function serializeService(doc: ServiceDocument): ServiceDocument {
 
 export const getPublishedServices = cache(
   async (): Promise<ServiceDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const services = await Service.find({ status: "published" })
+        .sort({ order: 1, title: 1 })
+        .lean<ServiceDocument[]>();
 
-    const services = await Service.find({ status: "published" })
-      .sort({ order: 1, title: 1 })
-      .lean<ServiceDocument[]>();
-
-    return services.map(serializeService);
+      return services.map(serializeService);
+    }, []);
   },
 );
 
 export const getServiceBySlug = cache(
   async (slug: string): Promise<ServiceDocument | null> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const service = await Service.findOne({
+        slug: slug.trim().toLowerCase(),
+        status: "published",
+      }).lean<ServiceDocument>();
 
-    const service = await Service.findOne({
-      slug: slug.trim().toLowerCase(),
-      status: "published",
-    }).lean<ServiceDocument>();
+      if (!service) {
+        return null;
+      }
 
-    if (!service) {
-      return null;
-    }
-
-    return serializeService(service);
+      return serializeService(service);
+    }, null);
   },
 );

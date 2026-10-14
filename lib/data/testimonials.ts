@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { connectDB } from "@/lib/db/connect";
+import { withDatabase } from "@/lib/db/with-database";
 import Testimonial from "@/models/Testimonial";
 import type { TestimonialDocument } from "@/types";
 
@@ -21,35 +21,35 @@ function serializeTestimonial(
 
 export const getPublishedTestimonials = cache(
   async (): Promise<TestimonialDocument[]> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const testimonials = await Testimonial.find({ status: "published" })
+        .sort({ order: 1, createdAt: -1 })
+        .lean<TestimonialDocument[]>();
 
-    const testimonials = await Testimonial.find({ status: "published" })
-      .sort({ order: 1, createdAt: -1 })
-      .lean<TestimonialDocument[]>();
-
-    return testimonials.map(serializeTestimonial);
+      return testimonials.map(serializeTestimonial);
+    }, []);
   },
 );
 
 export const getFeaturedTestimonial = cache(
   async (): Promise<TestimonialDocument | null> => {
-    await connectDB();
+    return withDatabase(async () => {
+      const featured = await Testimonial.findOne({
+        status: "published",
+        featured: true,
+      })
+        .sort({ order: 1 })
+        .lean<TestimonialDocument>();
 
-    const featured = await Testimonial.findOne({
-      status: "published",
-      featured: true,
-    })
-      .sort({ order: 1 })
-      .lean<TestimonialDocument>();
+      if (featured) {
+        return serializeTestimonial(featured);
+      }
 
-    if (featured) {
-      return serializeTestimonial(featured);
-    }
+      const fallback = await Testimonial.findOne({ status: "published" })
+        .sort({ order: 1 })
+        .lean<TestimonialDocument>();
 
-    const fallback = await Testimonial.findOne({ status: "published" })
-      .sort({ order: 1 })
-      .lean<TestimonialDocument>();
-
-    return fallback ? serializeTestimonial(fallback) : null;
+      return fallback ? serializeTestimonial(fallback) : null;
+    }, null);
   },
 );
