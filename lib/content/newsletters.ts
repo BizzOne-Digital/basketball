@@ -7,6 +7,11 @@ export type NewsletterIssue = {
 /** PDFs live in `public/newsletter/` and are served at `/newsletter/<filename>`. */
 export const PO_BASKETBALL_NEWSLETTERS: NewsletterIssue[] = [
   {
+    issue: 8,
+    title: "P-O Dribble Drive Coaches Newsletter — Issue 8",
+    filename: "PO_Dribble_Drive_Coaches_Newsletter-8.pdf",
+  },
+  {
     issue: 6,
     title: "P-O Dribble Drive Coaches Newsletter — Issue 6",
     filename: "PO_Dribble_Drive_Coaches_Newsletter-6.pdf",
