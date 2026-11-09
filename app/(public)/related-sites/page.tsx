@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { RELATED_SITES } from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Related Sites",
   description: "External links and resources for Philipsburg-Osceola Mountaineer Basketball.",
 };
 
-export default function RelatedSitesPage() {
+export default async function RelatedSitesPage() {
+  const RELATED_SITES = (await getContent("related-sites")).sites;
   return (
     <ProgramPageShell
       title="Related Sites"

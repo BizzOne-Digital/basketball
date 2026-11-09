@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { Trophy, Medal, Award } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { XMAS_TOURNAMENT } from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "P-O X-mas Tournament",
   description: "Annual Philipsburg-Osceola Christmas Basketball Tournament information.",
 };
 
-export default function XmasTournamentPage() {
+export default async function XmasTournamentPage() {
+  const XMAS_TOURNAMENT = await getContent("xmas-tournament");
   return (
     <ProgramPageShell
       title={XMAS_TOURNAMENT.title}

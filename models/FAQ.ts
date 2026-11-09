@@ -39,7 +39,6 @@ const faqSchema = new Schema<FAQDoc>(
   },
 );
 
-faqSchema.index({ slug: 1 }, { unique: true });
 faqSchema.index({ status: 1, category: 1, order: 1 });
 
 const FAQ: Model<FAQDoc> =

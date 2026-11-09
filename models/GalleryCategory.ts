@@ -41,7 +41,6 @@ const galleryCategorySchema = new Schema<GalleryCategoryDoc>(
   },
 );
 
-galleryCategorySchema.index({ slug: 1 }, { unique: true });
 galleryCategorySchema.index({ status: 1, order: 1 });
 
 const GalleryCategory: Model<GalleryCategoryDoc> =

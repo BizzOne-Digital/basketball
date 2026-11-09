@@ -67,7 +67,6 @@ const serviceSchema = new Schema<ServiceDoc>(
   },
 );
 
-serviceSchema.index({ slug: 1 }, { unique: true });
 serviceSchema.index({ status: 1, order: 1 });
 
 const Service: Model<ServiceDoc> =

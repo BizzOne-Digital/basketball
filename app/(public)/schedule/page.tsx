@@ -4,20 +4,16 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { SeasonSchedule } from "@/components/public/SeasonSchedule";
-import { MAXPREPS_SCHEDULE_URL } from "@/lib/content/mountie-program";
-import {
-  getSeasonSchedule,
-  getSeasonSchedulePhotos,
-  getSeasonScheduleScreenshots,
-  SCHEDULE_PAGE_SEASONS,
-} from "@/lib/content/season-schedules";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Schedule & Results",
   description: "Mountaineer Basketball schedule, wins, and losses by season.",
 };
 
-export default function SchedulePage() {
+export default async function SchedulePage() {
+  const { seasons, maxprepsUrl: MAXPREPS_SCHEDULE_URL } = await getContent("schedule-page");
+
   return (
     <ProgramPageShell
       title="Schedule & Results"
@@ -45,14 +41,15 @@ export default function SchedulePage() {
         </div>
 
         <div className="space-y-20 pt-6">
-          {SCHEDULE_PAGE_SEASONS.map((season) => {
-            const schedule = getSeasonSchedule(season.slug);
-            const screenshots = getSeasonScheduleScreenshots(season.slug);
-            const photos = getSeasonSchedulePhotos(season.slug);
-
-            if (!schedule) {
-              return null;
-            }
+          {seasons.map((season) => {
+            const schedule = {
+              record: season.record,
+              conferenceRecord: season.conferenceRecord || undefined,
+              conferenceRank: season.conferenceRank || undefined,
+              games: season.games,
+            };
+            const screenshots = season.screenshots;
+            const photos = season.photos;
 
             return (
               <section

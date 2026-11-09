@@ -4,10 +4,8 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { SectionHeading } from "@/components/public/SectionHeading";
-import {
-  CENTRAL_PA_LIONS_CONTENT,
-  CENTRAL_PA_LIONS_WEBSITE_URL,
-} from "@/lib/content/central-pa-lions";
+import { CENTRAL_PA_LIONS_WEBSITE_URL } from "@/lib/content/central-pa-lions";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Central PA Lions AAU",
@@ -15,7 +13,8 @@ export const metadata: Metadata = {
     "TJ Anderson's Central PA Lions Academy — youth basketball development for student-athletes in grades K-12.",
 };
 
-export default function CentralPaLionsPage() {
+export default async function CentralPaLionsPage() {
+  const CENTRAL_PA_LIONS_CONTENT = await getContent("central-pa-lions");
   const { about, mission, championshipPhotos, video, logo } =
     CENTRAL_PA_LIONS_CONTENT;
 

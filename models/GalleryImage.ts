@@ -45,7 +45,6 @@ const galleryImageSchema = new Schema<GalleryImageDoc>(
   },
 );
 
-galleryImageSchema.index({ slug: 1 }, { unique: true });
 galleryImageSchema.index({ categorySlug: 1, status: 1, order: 1 });
 galleryImageSchema.index({ featured: 1, status: 1 });
 

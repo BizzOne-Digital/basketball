@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import {
   LayoutDashboard,
   FileText,
+  LayoutList,
   Briefcase,
   Images,
   MessageSquareQuote,
@@ -26,6 +27,7 @@ import { cn } from "@/lib/utils/cn";
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/pages", label: "Pages", icon: FileText },
+  { href: "/admin/content", label: "Site Content", icon: LayoutList },
   { href: "/admin/services", label: "Services", icon: Briefcase },
   { href: "/admin/gallery", label: "Gallery", icon: Images },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },

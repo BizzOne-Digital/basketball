@@ -43,7 +43,6 @@ const siteSettingsSchema = new Schema<SiteSettingsDoc>(
   },
 );
 
-siteSettingsSchema.index({ singletonKey: 1 }, { unique: true });
 
 const SiteSettings: Model<SiteSettingsDoc> =
   (mongoose.models.SiteSettings as Model<SiteSettingsDoc> | undefined) ??

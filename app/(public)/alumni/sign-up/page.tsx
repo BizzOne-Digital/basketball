@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { AlumniSignupForm } from "@/components/public/AlumniSignupForm";
-import { ALUMNI_SIGNUP_HOME_CONTENT } from "@/lib/content/alumni-signup";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Alumni Sign-Up",
@@ -9,7 +9,8 @@ export const metadata: Metadata = {
     "Join the P-O Varsity Boys Basketball alumni network and stay connected with the Mounties.",
 };
 
-export default function AlumniSignUpPage() {
+export default async function AlumniSignUpPage() {
+  const ALUMNI_SIGNUP_HOME_CONTENT = await getContent("alumni-signup");
   const content = ALUMNI_SIGNUP_HOME_CONTENT;
 
   return (

@@ -52,7 +52,6 @@ const productSchema = new Schema<ProductDoc>(
   },
 );
 
-productSchema.index({ slug: 1 }, { unique: true });
 productSchema.index({ status: 1, order: 1 });
 productSchema.index({ sku: 1 }, { sparse: true, unique: true });
 

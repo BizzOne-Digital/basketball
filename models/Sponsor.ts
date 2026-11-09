@@ -53,7 +53,6 @@ const sponsorSchema = new Schema<SponsorDoc>(
   },
 );
 
-sponsorSchema.index({ slug: 1 }, { unique: true });
 sponsorSchema.index({ season: 1, tier: 1, order: 1 });
 sponsorSchema.index({ status: 1 });
 

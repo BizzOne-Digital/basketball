@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { COACHING_STAFF } from "@/lib/content/mountie-program";
 import { getGalleryImageByIndex, resolveImageAlt } from "@/lib/images";
+import { getContent } from "@/lib/content/site-content";
 
-export function CoachingStaffGrid() {
+export async function CoachingStaffGrid() {
+  const COACHING_STAFF = (await getContent("coaching-staff")).members;
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {COACHING_STAFF.map((member, index) => (
@@ -12,7 +13,7 @@ export function CoachingStaffGrid() {
         >
           <div className="relative aspect-[3/4]">
             <Image
-              src={getGalleryImageByIndex(index)}
+              src={member.photo || getGalleryImageByIndex(index)}
               alt={resolveImageAlt(undefined, member.name)}
               fill
               className="object-cover"

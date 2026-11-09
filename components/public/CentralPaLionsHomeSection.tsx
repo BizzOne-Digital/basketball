@@ -2,12 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { SectionHeading } from "@/components/public/SectionHeading";
-import {
-  CENTRAL_PA_LIONS_CONTENT,
-  CENTRAL_PA_LIONS_WEBSITE_URL,
-} from "@/lib/content/central-pa-lions";
+import { CENTRAL_PA_LIONS_WEBSITE_URL } from "@/lib/content/central-pa-lions";
+import { getContent } from "@/lib/content/site-content";
 
-export function CentralPaLionsHomeSection() {
+export async function CentralPaLionsHomeSection() {
+  const CENTRAL_PA_LIONS_CONTENT = await getContent("central-pa-lions");
   const { about, mission, logo } = CENTRAL_PA_LIONS_CONTENT;
 
   return (

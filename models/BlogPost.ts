@@ -50,7 +50,6 @@ const blogPostSchema = new Schema<BlogPostDoc>(
   },
 );
 
-blogPostSchema.index({ slug: 1 }, { unique: true });
 blogPostSchema.index({ status: 1, publishedAt: -1 });
 
 const BlogPost: Model<BlogPostDoc> =

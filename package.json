@@ -9,6 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "seed": "tsx scripts/seed.ts",
+    "set-admin": "tsx scripts/set-admin.ts",
     "update-content": "tsx scripts/update-content.ts"
   },
   "dependencies": {

@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FileText } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import {
-  PO_BASKETBALL_NEWSLETTERS,
-  newsletterPdfHref,
-} from "@/lib/content/newsletters";
+import { newsletterPdfHref } from "@/lib/content/newsletters";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "P-O Basketball Newsletters",
@@ -13,7 +11,8 @@ export const metadata: Metadata = {
     "Download past issues of the Philipsburg-Osceola Dribble Drive Coaches Newsletter.",
 };
 
-export default function NewslettersPage() {
+export default async function NewslettersPage() {
+  const PO_BASKETBALL_NEWSLETTERS = (await getContent("newsletters")).issues;
   return (
     <ProgramPageShell
       title="P-O Basketball Newsletters"

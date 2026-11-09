@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { getPublishedRecordsByCategory } from "@/lib/data/records";
-import {
-  COACHING_RECORDS,
-  RECORD_BOOK_SECTIONS,
-} from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Record Book",
@@ -13,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default async function RecordBookPage() {
+  const RECORD_BOOK_SECTIONS = await getContent("record-book");
+  const COACHING_RECORDS = (await getContent("record-book")).coaches;
   const [teamRecords, individualRecords] = await Promise.all([
     getPublishedRecordsByCategory("team"),
     getPublishedRecordsByCategory("individual"),

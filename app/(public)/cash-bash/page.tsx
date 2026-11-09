@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, MapPin, Music, Clock, Calendar } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { CASH_BASH } from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Cash Bash — Vegas Night",
@@ -11,7 +11,8 @@ export const metadata: Metadata = {
     "Philipsburg Osceola Elementary Basketball Cash Bash — Vegas Night, January 10, 2026 at Columbia Fire Hall.",
 };
 
-export default function CashBashPage() {
+export default async function CashBashPage() {
+  const CASH_BASH = await getContent("cash-bash");
   return (
     <ProgramPageShell
       title="Cash Bash"

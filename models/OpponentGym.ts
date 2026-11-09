@@ -49,7 +49,6 @@ const opponentGymSchema = new Schema<OpponentGymDoc>(
   },
 );
 
-opponentGymSchema.index({ slug: 1 }, { unique: true });
 opponentGymSchema.index({ order: 1 });
 opponentGymSchema.index({ status: 1 });
 

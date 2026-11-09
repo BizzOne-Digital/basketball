@@ -47,7 +47,6 @@ const testimonialSchema = new Schema<TestimonialDoc>(
   },
 );
 
-testimonialSchema.index({ slug: 1 }, { unique: true });
 testimonialSchema.index({ status: 1, order: 1 });
 testimonialSchema.index({ featured: 1, status: 1 });
 

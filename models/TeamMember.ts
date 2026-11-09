@@ -47,7 +47,6 @@ const teamMemberSchema = new Schema<TeamMemberDoc>(
   },
 );
 
-teamMemberSchema.index({ slug: 1 }, { unique: true });
 teamMemberSchema.index({ status: 1, order: 1 });
 
 const TeamMember: Model<TeamMemberDoc> =

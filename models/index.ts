@@ -21,6 +21,7 @@ export {
   type AlumniSignupSubmissionDoc,
 } from "./AlumniSignupSubmission";
 export { default as StoredUpload, type StoredUploadDoc } from "./StoredUpload";
+export { default as SiteContent, type SiteContentDoc } from "./SiteContent";
 export { default as PlayerRoster, type PlayerRosterDoc } from "./PlayerRoster";
 export { default as Sponsor, type SponsorDoc } from "./Sponsor";
 export { default as OpponentGym, type OpponentGymDoc } from "./OpponentGym";

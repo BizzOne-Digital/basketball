@@ -18,6 +18,8 @@ type ImageUploadFieldProps = {
   onAltChange?: (alt: string) => void;
   hint?: string;
   className?: string;
+  /** When true the owning record is cleaned up server-side on save, so the stored file is not deleted from the browser. */
+  deferDelete?: boolean;
 };
 
 async function deleteStoredUpload(url: string) {
@@ -46,6 +48,7 @@ export function ImageUploadField({
   onAltChange,
   hint,
   className,
+  deferDelete = false,
 }: ImageUploadFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -77,7 +80,7 @@ export function ImageUploadField({
       onChange(data.url);
       toast.success("Image uploaded");
 
-      if (previousUrl && previousUrl !== data.url) {
+      if (!deferDelete && previousUrl && previousUrl !== data.url) {
         try {
           await deleteStoredUpload(previousUrl);
         } catch (error) {
@@ -103,7 +106,9 @@ export function ImageUploadField({
     setUploading(true);
 
     try {
-      await deleteStoredUpload(value);
+      if (!deferDelete) {
+        await deleteStoredUpload(value);
+      }
       onChange("");
       toast.success("Image removed");
     } catch (error) {
@@ -125,7 +130,7 @@ export function ImageUploadField({
               fill
               className="object-cover"
               sizes="400px"
-              unoptimized={previewSrc.startsWith(STORED_UPLOAD_URL_PREFIX)}
+              unoptimized
             />
           </div>
           <div className="flex items-center justify-between gap-2 p-3">

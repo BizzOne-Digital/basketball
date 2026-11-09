@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { SPONSORS_2026 } from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "2026 Sponsors and Donors",
   description: "Thank you to our Mountaineer Basketball sponsors and donors.",
 };
 
-export default function SponsorsPage() {
+export default async function SponsorsPage() {
+  const SPONSORS_2026 = await getContent("sponsors");
   return (
     <ProgramPageShell
       title={SPONSORS_2026.title}

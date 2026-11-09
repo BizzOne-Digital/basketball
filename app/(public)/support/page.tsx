@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { SUPPORT_PROGRAM } from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Support The Program",
   description: "Support Philipsburg-Osceola Mountaineer Basketball.",
 };
 
-export default function SupportPage() {
+export default async function SupportPage() {
+  const SUPPORT_PROGRAM = await getContent("support-program");
   return (
     <ProgramPageShell
       title={SUPPORT_PROGRAM.title}

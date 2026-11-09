@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { FUNDRAISING, CASH_BASH } from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Fundraising",
   description: "Support Philipsburg-Osceola Mountaineer Basketball through our fundraising programs.",
 };
 
-export default function FundraisingPage() {
+export default async function FundraisingPage() {
+  const FUNDRAISING = await getContent("fundraising");
+  const CASH_BASH = await getContent("cash-bash");
   return (
     <ProgramPageShell
       title={FUNDRAISING.title}

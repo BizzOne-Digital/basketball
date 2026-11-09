@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { connectDB } from "@/lib/db/connect";
 import { requireAdmin } from "@/lib/auth/session";
+import { deleteUploadsReferencedBy } from "@/lib/uploads/stored-uploads";
 import Product from "@/models/Product";
 import { actionError, type ActionResult } from "./shared";
 
@@ -138,6 +139,7 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
     await connectDB();
 
     const product = await Product.findByIdAndDelete(id);
+    if (product) await deleteUploadsReferencedBy(product.toObject());
     if (!product) {
       return { success: false, error: "Product not found." };
     }

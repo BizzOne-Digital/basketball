@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { connectDB } from "@/lib/db/connect";
 import { requireAdmin } from "@/lib/auth/session";
+import { deleteUploadsReferencedBy } from "@/lib/uploads/stored-uploads";
 import TeamMember from "@/models/TeamMember";
 import { actionError, type ActionResult } from "./shared";
 
@@ -106,6 +107,7 @@ export async function deleteTeamMember(id: string): Promise<ActionResult> {
     await connectDB();
 
     const member = await TeamMember.findByIdAndDelete(id);
+    if (member) await deleteUploadsReferencedBy(member.toObject());
     if (!member) {
       return { success: false, error: "Team member not found." };
     }

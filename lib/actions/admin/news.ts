@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { connectDB } from "@/lib/db/connect";
 import { requireAdmin } from "@/lib/auth/session";
+import { deleteUploadsReferencedBy } from "@/lib/uploads/stored-uploads";
 import BlogPost from "@/models/BlogPost";
 import { actionError, type ActionResult } from "./shared";
 
@@ -139,6 +140,7 @@ export async function deleteNewsPost(id: string): Promise<ActionResult> {
     await connectDB();
 
     const post = await BlogPost.findByIdAndDelete(id);
+    if (post) await deleteUploadsReferencedBy(post.toObject());
     if (!post) {
       return { success: false, error: "News post not found." };
     }

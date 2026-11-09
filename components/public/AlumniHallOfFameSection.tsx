@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { ALUMNI_HALL_OF_FAME_2026 } from "@/lib/content/alumni-hall-of-fame";
+import { getContent } from "@/lib/content/site-content";
 
-export function AlumniHallOfFameSection() {
+export async function AlumniHallOfFameSection() {
+  const ALUMNI_HALL_OF_FAME_2026 = await getContent("alumni-hall-of-fame");
   const content = ALUMNI_HALL_OF_FAME_2026;
   const { honoree } = content;
 

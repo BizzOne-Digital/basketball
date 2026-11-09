@@ -51,8 +51,6 @@ const pageSchema = new Schema<PageDoc>(
   },
 );
 
-pageSchema.index({ key: 1 }, { unique: true });
-pageSchema.index({ slug: 1 }, { unique: true });
 pageSchema.index({ status: 1 });
 
 const Page: Model<PageDoc> =

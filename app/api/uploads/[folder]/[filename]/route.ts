@@ -22,6 +22,7 @@ export async function GET(_request: Request, { params }: UploadAssetRouteProps) 
         "Content-Type": asset.mimeType,
         "Content-Length": String(asset.size),
         "Cache-Control": "public, max-age=31536000, immutable",
+        "X-Content-Type-Options": "nosniff",
       },
     });
   } catch (error) {

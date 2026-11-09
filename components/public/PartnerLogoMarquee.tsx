@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import { useReducedMotion } from "@/components/motion/useReducedMotion";
-import { PO_LOGOS } from "@/lib/content/po-logos";
+interface PartnerLogoMarqueeProps {
+  logos: readonly { path: string; alt: string }[];
+}
 
-export function PartnerLogoMarquee() {
+export function PartnerLogoMarquee({ logos }: PartnerLogoMarqueeProps) {
   const reducedMotion = useReducedMotion();
-  const track = [...PO_LOGOS, ...PO_LOGOS];
+  const track = [...logos, ...logos];
 
   return (
     <section

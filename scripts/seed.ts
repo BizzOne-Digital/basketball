@@ -1,4 +1,7 @@
-import "dotenv/config";
+import { config as loadEnv } from "dotenv";
+
+loadEnv({ path: ".env.local" });
+loadEnv();
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 import {
@@ -77,8 +80,13 @@ function heroSections(
 }
 
 async function seedAdmin() {
-  const email = process.env.ADMIN_EMAIL ?? "admin@mountiebasketball.com";
-  const password = process.env.ADMIN_PASSWORD ?? "MountieAdmin2026!";
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
+
+  if (!email || !password) {
+    throw new Error("Set ADMIN_EMAIL and ADMIN_PASSWORD (for example in .env.local) before seeding.");
+  }
+
   const hash = await bcrypt.hash(password, 12);
 
   await AdminUser.findOneAndUpdate(

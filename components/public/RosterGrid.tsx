@@ -1,15 +1,16 @@
 import Image from "next/image";
 import { getPublishedRosterBySeason } from "@/lib/data/roster";
 import { getGalleryImageByIndex, resolveImageAlt } from "@/lib/images";
-import { ROSTER_BY_CLASS } from "@/lib/content/mountie-program";
 import { PLACEHOLDERS } from "@/lib/images";
 import { SectionHeading } from "@/components/public/SectionHeading";
+import { getContent } from "@/lib/content/site-content";
 
 interface RosterGridProps {
   season?: string;
 }
 
 export async function RosterGrid({ season = "2025-26" }: RosterGridProps) {
+  const ROSTER_BY_CLASS = (await getContent("roster-by-class")).groups;
   // Try to get roster from database first
   const dbRoster = await getPublishedRosterBySeason(season);
 

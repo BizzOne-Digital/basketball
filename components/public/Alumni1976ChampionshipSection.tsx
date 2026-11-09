@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { SectionHeading } from "@/components/public/SectionHeading";
-import { ALUMNI_1976_CHAMPIONSHIP } from "@/lib/content/alumni-1976-championship";
+import { getContent } from "@/lib/content/site-content";
 
-export function Alumni1976ChampionshipSection() {
+export async function Alumni1976ChampionshipSection() {
+  const ALUMNI_1976_CHAMPIONSHIP = await getContent("alumni-1976");
   const content = ALUMNI_1976_CHAMPIONSHIP;
   const championshipSeason = content.seasons.find(
     (season) => season.title === "1976 Season",

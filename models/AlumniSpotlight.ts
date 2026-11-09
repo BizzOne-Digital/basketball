@@ -60,7 +60,6 @@ const alumniSpotlightSchema = new Schema<AlumniSpotlightDoc>(
   },
 );
 
-alumniSpotlightSchema.index({ slug: 1 }, { unique: true });
 alumniSpotlightSchema.index({ graduationYear: -1 });
 alumniSpotlightSchema.index({ featured: 1, order: 1 });
 alumniSpotlightSchema.index({ status: 1 });

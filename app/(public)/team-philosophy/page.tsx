@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { TEAM_PHILOSOPHY } from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Team Philosophy",
@@ -8,7 +8,8 @@ export const metadata: Metadata = {
     "PO Basketball — Attitude, Commitment, & Class. The 10 Commitments of Mountaineer Basketball.",
 };
 
-export default function TeamPhilosophyPage() {
+export default async function TeamPhilosophyPage() {
+  const TEAM_PHILOSOPHY = await getContent("team-philosophy");
   return (
     <ProgramPageShell
       title={TEAM_PHILOSOPHY.title}

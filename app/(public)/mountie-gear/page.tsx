@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { SectionHeading } from "@/components/public/SectionHeading";
-import { MOUNTIE_GEAR_CONTENT } from "@/lib/content/mountie-gear";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Get Your Mountie Gear",
@@ -12,7 +12,8 @@ export const metadata: Metadata = {
     "Order official Philipsburg-Osceola Mountaineer Basketball gear for the 2026 winter season.",
 };
 
-export default function MountieGearPage() {
+export default async function MountieGearPage() {
+  const MOUNTIE_GEAR_CONTENT = await getContent("mountie-gear");
   const content = MOUNTIE_GEAR_CONTENT;
 
   return (

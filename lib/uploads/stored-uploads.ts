@@ -175,3 +175,12 @@ export async function deleteStoredUpload(
   const result = await StoredUpload.deleteOne({ folder, filename });
   return result.deletedCount > 0;
 }
+
+/** Deletes every stored upload referenced anywhere inside a record that is being removed. */
+export async function deleteUploadsReferencedBy(record: unknown): Promise<void> {
+  const { collectUploadUrls } = await import("@/lib/uploads/collect-urls");
+
+  for (const url of new Set(collectUploadUrls(record))) {
+    await deleteStoredUploadByUrl(url).catch(() => false);
+  }
+}

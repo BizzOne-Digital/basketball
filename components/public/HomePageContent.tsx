@@ -8,13 +8,8 @@ import { CTABanner } from "@/components/public/CTABanner";
 import { AlumniSignupHomeSection } from "@/components/public/AlumniSignupHomeSection";
 import { CentralPaLionsHomeSection } from "@/components/public/CentralPaLionsHomeSection";
 import { EmptyState } from "@/components/public/EmptyState";
-import {
-  JACK_BAILEY_QUOTE,
-  LEAGUE_CHAMPIONS,
-  MAXPREPS_SCHEDULE_URL,
-  PROGRAM_BRAND,
-} from "@/lib/content/mountie-program";
-import { HOME_MEDIA } from "@/lib/content/home-media";
+import { MAXPREPS_SCHEDULE_URL } from "@/lib/content/mountie-program";
+import { getContent } from "@/lib/content/site-content";
 import { getPublishedPosts } from "@/lib/data/blog";
 import type { SiteSettingsDocument } from "@/types";
 
@@ -24,6 +19,11 @@ interface HomePageContentProps {
 
 export async function HomePageContent({ settings }: HomePageContentProps) {
   const posts = await getPublishedPosts(3);
+  const homeBrand = await getContent("home-brand");
+  const PROGRAM_BRAND = homeBrand.brand;
+  const JACK_BAILEY_QUOTE = homeBrand.quote;
+  const LEAGUE_CHAMPIONS = homeBrand.champions;
+  const HOME_MEDIA = await getContent("home-media");
 
   const quickLinks = [
     { href: "/join-our-team", label: "Join Our Team" },

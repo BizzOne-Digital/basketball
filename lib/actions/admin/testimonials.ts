@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { connectDB } from "@/lib/db/connect";
 import { requireAdmin } from "@/lib/auth/session";
+import { deleteUploadsReferencedBy } from "@/lib/uploads/stored-uploads";
 import Testimonial from "@/models/Testimonial";
 import { actionError, type ActionResult } from "./shared";
 
@@ -103,6 +104,7 @@ export async function deleteTestimonial(id: string): Promise<ActionResult> {
     await connectDB();
 
     const testimonial = await Testimonial.findByIdAndDelete(id);
+    if (testimonial) await deleteUploadsReferencedBy(testimonial.toObject());
     if (!testimonial) {
       return { success: false, error: "Testimonial not found." };
     }

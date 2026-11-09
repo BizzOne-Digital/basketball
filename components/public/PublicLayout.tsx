@@ -5,6 +5,7 @@ import { PartnerLogoMarquee } from "@/components/public/PartnerLogoMarquee";
 import { PageTransitionWrapper } from "@/components/motion/PageTransitionWrapper";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
+import { getContent } from "@/lib/content/site-content";
 import type { SiteSettingsDocument } from "@/types";
 
 interface PublicLayoutProps {
@@ -12,7 +13,9 @@ interface PublicLayoutProps {
   children: React.ReactNode;
 }
 
-export function PublicLayout({ settings, children }: PublicLayoutProps) {
+export async function PublicLayout({ settings, children }: PublicLayoutProps) {
+  const { logos } = await getContent("partner-logos");
+
   return (
     <div className="flex min-h-full w-full min-w-0 flex-col overflow-x-clip">
       <SmoothScrollProvider>
@@ -24,7 +27,7 @@ export function PublicLayout({ settings, children }: PublicLayoutProps) {
             {children}
           </main>
         </PageTransitionWrapper>
-        <PartnerLogoMarquee />
+        <PartnerLogoMarquee logos={logos} />
         <Footer settings={settings} />
       </SmoothScrollProvider>
     </div>

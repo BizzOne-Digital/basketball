@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { SectionHeading } from "@/components/public/SectionHeading";
-import {
-  ALUMNI_SIGNUP_FORM_PATH,
-  ALUMNI_SIGNUP_HOME_CONTENT,
-} from "@/lib/content/alumni-signup";
+import { ALUMNI_SIGNUP_FORM_PATH } from "@/lib/content/alumni-signup";
+import { getContent } from "@/lib/content/site-content";
 
-function AlumniFormLink({ className }: { className?: string }) {
+function AlumniFormLink({ className, label }: { className?: string; label: string }) {
   return (
     <Link
       href={ALUMNI_SIGNUP_FORM_PATH}
@@ -15,13 +13,13 @@ function AlumniFormLink({ className }: { className?: string }) {
       }
     >
       <span aria-hidden>👉</span>
-      {ALUMNI_SIGNUP_HOME_CONTENT.formLinkLabel}
+      {label}
     </Link>
   );
 }
 
-export function AlumniSignupHomeSection() {
-  const content = ALUMNI_SIGNUP_HOME_CONTENT;
+export async function AlumniSignupHomeSection() {
+  const content = await getContent("alumni-signup");
 
   return (
     <section className="border-b border-white/10 bg-gradient-to-b from-mountie-blue/15 to-transparent py-16">
@@ -33,7 +31,7 @@ export function AlumniSignupHomeSection() {
         />
 
         <div className="mt-8 space-y-6 rounded-2xl border border-ice-blue/25 bg-gunmetal/20 p-6 sm:p-8">
-          <AlumniFormLink />
+          <AlumniFormLink label={content.formLinkLabel} />
 
           <p className="text-lg font-semibold leading-8 text-mountie-white">
             {content.introLead}
@@ -62,6 +60,7 @@ export function AlumniSignupHomeSection() {
           </p>
 
           <AlumniFormLink
+            label={content.formLinkLabel}
             className="inline-flex items-center gap-2 rounded-full bg-ice-blue px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-midnight transition-opacity hover:opacity-90"
           />
 

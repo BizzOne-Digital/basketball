@@ -6,7 +6,7 @@ import { GalleryGrid } from "@/components/public/GalleryGrid";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { SeasonRosterGrid } from "@/components/public/SeasonRosterGrid";
 import { SeniorSpotlightGallery } from "@/components/public/SeniorSpotlightGallery";
-import { getSeasonRoster } from "@/lib/content/season-rosters";
+import { getContent } from "@/lib/content/site-content";
 import { getSeniorSpotlightForSeason } from "@/lib/data/senior-spotlight";
 import {
   getSeason,
@@ -35,7 +35,8 @@ export async function generateMetadata({
     return { title: "Season Not Found" };
   }
 
-  const hasRoster = getSeasonRoster(season.slug).length > 0;
+  const rosters = await getContent("season-rosters");
+  const hasRoster = (rosters[season.slug] ?? []).length > 0;
 
   return {
     title: hasRoster
@@ -55,7 +56,8 @@ export default async function SeasonDetailPage({
     notFound();
   }
 
-  const roster = getSeasonRoster(season.slug);
+  const rosters = await getContent("season-rosters");
+  const roster = rosters[season.slug] ?? [];
   const gameActions = getSeasonGameActions(season.slug);
   const seniorSpotlight = getSeniorSpotlightForSeason(season.slug);
   const { previous, next } = getSeasonNeighbours(season.slug);

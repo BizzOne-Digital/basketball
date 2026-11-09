@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { connectDB } from "@/lib/db/connect";
 import { requireAdmin } from "@/lib/auth/session";
+import { deleteUploadsReferencedBy } from "@/lib/uploads/stored-uploads";
 import GalleryCategory from "@/models/GalleryCategory";
 import GalleryImage from "@/models/GalleryImage";
 import { actionError, type ActionResult } from "./shared";
@@ -115,6 +116,8 @@ export async function deleteGalleryCategory(id: string): Promise<ActionResult> {
       return { success: false, error: "Category not found." };
     }
 
+    const categoryImages = await GalleryImage.find({ categorySlug: category.slug }).lean();
+    await deleteUploadsReferencedBy([category.toObject(), categoryImages]);
     await GalleryImage.deleteMany({ categorySlug: category.slug });
     await GalleryCategory.findByIdAndDelete(id);
 
@@ -198,6 +201,7 @@ export async function deleteGalleryImage(id: string): Promise<ActionResult> {
     await connectDB();
 
     const image = await GalleryImage.findByIdAndDelete(id);
+    if (image) await deleteUploadsReferencedBy(image.toObject());
     if (!image) {
       return { success: false, error: "Image not found." };
     }

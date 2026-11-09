@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import { TEAM_SIGNUPS } from "@/lib/content/team-signups";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Join Our Team",
@@ -10,7 +10,8 @@ export const metadata: Metadata = {
     "Sign up for Philipsburg-Osceola Mountaineer Basketball — varsity and junior high registration.",
 };
 
-export default function JoinOurTeamPage() {
+export default async function JoinOurTeamPage() {
+  const TEAM_SIGNUPS = await getContent("join-our-team");
   return (
     <ProgramPageShell
       title={TEAM_SIGNUPS.title}

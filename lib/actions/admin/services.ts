@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { connectDB } from "@/lib/db/connect";
 import { requireAdmin } from "@/lib/auth/session";
+import { deleteUploadsReferencedBy } from "@/lib/uploads/stored-uploads";
 import Service from "@/models/Service";
 import type { SectionType } from "@/types";
 import { actionError, type ActionResult } from "./shared";
@@ -203,6 +204,7 @@ export async function deleteService(id: string): Promise<ActionResult> {
     await connectDB();
 
     const service = await Service.findByIdAndDelete(id);
+    if (service) await deleteUploadsReferencedBy(service.toObject());
     if (!service) {
       return { success: false, error: "Service not found." };
     }

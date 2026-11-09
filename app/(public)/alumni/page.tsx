@@ -4,8 +4,8 @@ import { ProgramPageShell } from "@/components/public/ProgramPageShell";
 import { Alumni1976ChampionshipSection } from "@/components/public/Alumni1976ChampionshipSection";
 import { AlumniHallOfFameSection } from "@/components/public/AlumniHallOfFameSection";
 import { getPublishedAlumniSpotlights, getFeaturedAlumni } from "@/lib/data/alumni";
-import { ALUMNI_CONTENT } from "@/lib/content/mountie-program";
 import { PLACEHOLDERS, resolveImagePath } from "@/lib/images";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "Alumni",
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AlumniPage() {
+  const ALUMNI_CONTENT = await getContent("alumni");
   const [alumni, featured] = await Promise.all([
     getPublishedAlumniSpotlights(),
     getFeaturedAlumni(),

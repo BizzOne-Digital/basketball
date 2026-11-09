@@ -60,7 +60,6 @@ const playerRosterSchema = new Schema<PlayerRosterDoc>(
   },
 );
 
-playerRosterSchema.index({ slug: 1 }, { unique: true });
 playerRosterSchema.index({ season: 1, grade: 1, order: 1 });
 playerRosterSchema.index({ status: 1 });
 

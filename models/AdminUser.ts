@@ -40,7 +40,6 @@ const adminUserSchema = new Schema<AdminUserDoc>(
   },
 );
 
-adminUserSchema.index({ email: 1 }, { unique: true });
 
 const AdminUser: Model<AdminUserDoc> =
   (mongoose.models.AdminUser as Model<AdminUserDoc> | undefined) ??

@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ProgramPageShell } from "@/components/public/ProgramPageShell";
-import {
-  formatScorerPoints,
-  THOUSAND_POINT_SCORERS,
-} from "@/lib/content/thousand-point-scorers";
+import { formatScorerPoints } from "@/lib/content/thousand-point-scorers";
+import { getContent } from "@/lib/content/site-content";
 
 export const metadata: Metadata = {
   title: "1,000 Career Points Scorers",
@@ -13,7 +11,8 @@ export const metadata: Metadata = {
     "Philipsburg-Osceola Mountaineer Basketball 1,000 point club — all-time career scoring leaders.",
 };
 
-export default function ThousandPointScorersPage() {
+export default async function ThousandPointScorersPage() {
+  const THOUSAND_POINT_SCORERS = await getContent("thousand-point-scorers");
   return (
     <ProgramPageShell
       title={THOUSAND_POINT_SCORERS.title}
