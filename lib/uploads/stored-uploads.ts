@@ -131,18 +131,22 @@ export async function getStoredUpload(
 
   await connectDB();
 
-  const document = await StoredUpload.findOne({ folder, filename })
-    .select("mimeType size data")
-    .lean<{ mimeType: string; size: number; data: Buffer }>();
+  // Not lean(): a lean read returns a BSON Binary wrapper, which serialises
+  // to an empty body. The hydrated document gives a real Buffer.
+  const document = await StoredUpload.findOne({ folder, filename }).select(
+    "mimeType size data",
+  );
 
   if (!document?.data) {
     return null;
   }
 
+  const data = Buffer.from(document.data);
+
   return {
     mimeType: document.mimeType,
-    size: document.size,
-    data: document.data,
+    size: data.length,
+    data,
   };
 }
 
