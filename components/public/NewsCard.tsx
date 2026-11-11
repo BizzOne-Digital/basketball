@@ -23,7 +23,7 @@ export function NewsCard({ post, featured }: NewsCardProps) {
           src={src}
           alt={resolveImageAlt(post.coverImage, post.title)}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className={`object-cover transition-transform duration-700 group-hover:scale-105 ${src.startsWith("/api/uploads/") ? "object-top" : ""}`}
         />
       </div>
       <div className="flex flex-col gap-3 p-6">

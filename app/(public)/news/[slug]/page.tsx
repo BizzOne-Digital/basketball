@@ -105,6 +105,18 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
 
         <section className="py-16">
           <div className="mx-auto max-w-4xl px-4 lg:px-8">
+            {coverSrc.startsWith("/api/uploads/") ? (
+              <figure className="mb-10 overflow-hidden rounded-2xl border border-white/10 bg-gunmetal/20">
+                <Image
+                  src={coverSrc}
+                  alt={resolveImageAlt(post.coverImage, post.title)}
+                  width={1089}
+                  height={1445}
+                  sizes="(min-width: 896px) 896px, 100vw"
+                  className="mx-auto h-auto w-full max-w-2xl"
+                />
+              </figure>
+            ) : null}
             {post.excerpt ? (
               <p className="mb-8 text-xl leading-9 text-mountie-silver">
                 {post.excerpt}
