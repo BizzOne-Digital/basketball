@@ -13,6 +13,7 @@ export const MEET_THE_MOUNTIES_HREF = "/meet-the-mounties";
 
 export const MEET_THE_MOUNTIES_LINKS = [
   { href: "/meet-the-mounties/senior-spotlight", label: "Senior Spotlight" },
+  { href: "/mountie-college-players", label: "Mountie College Players" },
   ...SEASONS.map((season) => ({
     href: seasonHref(season.slug),
     label: season.label,
@@ -47,6 +48,7 @@ export const FOOTER_LINK_GROUPS = [
       { href: "/schedule", label: "Schedule & Results" },
       { href: "/coaching-staff", label: "Coaching Staff" },
       { href: "/team-philosophy", label: "Team Philosophy" },
+      { href: "/mountie-college-players", label: "Mountie College Players" },
     ],
   },
   {

@@ -46,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         : []),
     ]),
     "/meet-the-mounties/senior-spotlight",
+    "/mountie-college-players",
     "/support",
     "/sponsors",
     "/cash-bash",

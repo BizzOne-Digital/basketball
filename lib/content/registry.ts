@@ -1,6 +1,7 @@
 import { ALUMNI_1976_CHAMPIONSHIP } from "@/lib/content/alumni-1976-championship";
 import { ALUMNI_HALL_OF_FAME_2026 } from "@/lib/content/alumni-hall-of-fame";
 import { ALUMNI_SIGNUP_HOME_CONTENT } from "@/lib/content/alumni-signup";
+import { COLLEGE_PLAYERS_CONTENT } from "@/lib/content/college-players";
 import { CENTRAL_PA_LIONS_CONTENT } from "@/lib/content/central-pa-lions";
 import { HOME_MEDIA } from "@/lib/content/home-media";
 import { MOUNTIE_GEAR_CONTENT } from "@/lib/content/mountie-gear";
@@ -98,6 +99,7 @@ export const CONTENT_DEFAULTS = {
   "join-our-team": TEAM_SIGNUPS,
   "mountie-gear": MOUNTIE_GEAR_CONTENT,
   "central-pa-lions": CENTRAL_PA_LIONS_CONTENT,
+  "college-players": COLLEGE_PLAYERS_CONTENT,
   newsletters: { issues: PO_BASKETBALL_NEWSLETTERS },
 };
 
@@ -121,6 +123,7 @@ export const CONTENT_BLOCKS: ContentBlockMeta[] = [
   { key: "join-our-team", label: "Join Our Team", group: "Coaches & Team", description: "Sign-up forms and links.", publicPath: "/join-our-team" },
   { key: "record-book", label: "Record Book", group: "Records & Alumni", description: "Coaching, team and individual records.", publicPath: "/record-book" },
   { key: "thousand-point-scorers", label: "1,000 Point Scorers", group: "Records & Alumni", description: "List of 1,000 point scorers.", publicPath: "/record-book/thousand-point-scorers" },
+  { key: "college-players", label: "Mountie College Players", group: "Records & Alumni", description: "College players by class, with photo, college and message.", publicPath: "/mountie-college-players" },
   { key: "alumni", label: "Alumni Page", group: "Records & Alumni", description: "Alumni headline, spotlight and sections.", publicPath: "/alumni" },
   { key: "alumni-signup", label: "Alumni Sign-up Section", group: "Records & Alumni", description: "Alumni sign-up promo shown on home and sign-up pages.", publicPath: "/alumni/sign-up" },
   { key: "alumni-hall-of-fame", label: "Alumni Hall of Fame", group: "Records & Alumni", description: "Hall of Fame section.", publicPath: "/alumni" },
