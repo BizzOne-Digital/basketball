@@ -21,6 +21,7 @@ export const MEET_THE_MOUNTIES_LINKS = [
 ];
 
 export const HEADER_MORE_LINKS = [
+  { href: "/mountie-college-players", label: "Mountie College Players" },
   { href: "/support", label: "Support" },
   { href: "/central-pa-lions", label: "Central PA Lions AAU" },
   { href: "/sponsors", label: "2026 Sponsors" },
