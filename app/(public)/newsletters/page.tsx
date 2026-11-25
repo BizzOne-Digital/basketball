@@ -48,7 +48,9 @@ export default async function NewslettersPage() {
                 <h2 className="mt-1 font-display text-lg uppercase tracking-[0.06em] text-mountie-white group-hover:text-ice-blue">
                   {entry.title}
                 </h2>
-                <p className="mt-1 text-sm text-mountie-silver">Open PDF</p>
+                <p className="mt-1 text-sm text-mountie-silver">
+                  {entry.filename.endsWith(".docx") ? "Download Word document" : "Open PDF"}
+                </p>
               </div>
             </Link>
           </li>

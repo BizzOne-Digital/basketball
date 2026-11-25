@@ -4,8 +4,18 @@ export type NewsletterIssue = {
   filename: string;
 };
 
-/** PDFs live in `public/newsletter/` and are served at `/newsletter/<filename>`. */
+/** PDF/Word files live in `public/newsletter/` and are served at `/newsletter/<filename>`. */
 export const PO_BASKETBALL_NEWSLETTERS: NewsletterIssue[] = [
+  {
+    issue: 11,
+    title: "P-O Dribble Drive Coaches Newsletter — November 25, 2026",
+    filename: "PO_Dribble_Drive_Newsletter_Nov_25_2026.docx",
+  },
+  {
+    issue: 10,
+    title: "P-O Dribble Drive Coaches Newsletter — November 18, 2026",
+    filename: "PO_Dribble_Drive_Newsletter_Nov_18_2026.docx",
+  },
   {
     issue: 9,
     title: "P-O Dribble Drive Coaches Newsletter — Issue 9",

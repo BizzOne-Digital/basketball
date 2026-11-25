@@ -3,6 +3,7 @@ import { ALUMNI_HALL_OF_FAME_2026 } from "@/lib/content/alumni-hall-of-fame";
 import { ALUMNI_SIGNUP_HOME_CONTENT } from "@/lib/content/alumni-signup";
 import { COLLEGE_PLAYERS_CONTENT } from "@/lib/content/college-players";
 import { CENTRAL_PA_LIONS_CONTENT } from "@/lib/content/central-pa-lions";
+import { SELECT_STANDINGS_CONTENT } from "@/lib/content/select-standings";
 import { HOME_MEDIA } from "@/lib/content/home-media";
 import { MOUNTIE_GEAR_CONTENT } from "@/lib/content/mountie-gear";
 import {
@@ -101,6 +102,7 @@ export const CONTENT_DEFAULTS = {
   "central-pa-lions": CENTRAL_PA_LIONS_CONTENT,
   "college-players": COLLEGE_PLAYERS_CONTENT,
   newsletters: { issues: PO_BASKETBALL_NEWSLETTERS },
+  "select-standings": SELECT_STANDINGS_CONTENT,
 };
 
 export type ContentKey = keyof typeof CONTENT_DEFAULTS;
@@ -139,6 +141,7 @@ export const CONTENT_BLOCKS: ContentBlockMeta[] = [
   { key: "xmas-tournament", label: "Xmas Tournament", group: "Support & Events", description: "Tournament page text.", publicPath: "/xmas-tournament" },
   { key: "mountie-gear", label: "Mountie Gear", group: "Support & Events", description: "Gear page text and links.", publicPath: "/mountie-gear" },
   { key: "newsletters", label: "Newsletters", group: "Support & Events", description: "Newsletter titles and links.", publicPath: "/newsletters" },
+  { key: "select-standings", label: "Select League Standings", group: "Support & Events", description: "Weekly 4th and 6th grade Select league standings.", publicPath: "/standings" },
   { key: "related-sites", label: "Related Sites", group: "Support & Events", description: "External links list.", publicPath: "/related-sites" },
 ];
 

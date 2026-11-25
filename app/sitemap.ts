@@ -60,6 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/central-pa-lions",
     "/related-sites",
     "/newsletters",
+    "/standings",
     "/news",
     "/contact",
     "/about",

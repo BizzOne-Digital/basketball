@@ -34,6 +34,7 @@ export const HEADER_MORE_LINKS = [
   { href: "/related-sites", label: "Related Sites" },
   { href: "/news", label: "Game Articles" },
   { href: "/newsletters", label: "P-O Basketball Newsletters" },
+  { href: "/standings", label: "Select League Standings" },
 ] as const;
 
 export const ALL_NAV_LINKS = [...HEADER_NAV_LINKS, ...HEADER_MORE_LINKS] as const;
@@ -73,6 +74,7 @@ export const FOOTER_LINK_GROUPS = [
       { href: "/meet-the-mounties", label: "Team Pictures" },
       { href: "/news", label: "Game Articles" },
       { href: "/newsletters", label: "P-O Basketball Newsletters" },
+      { href: "/standings", label: "Select League Standings" },
     ],
   },
 ] as const;
