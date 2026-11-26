@@ -139,7 +139,12 @@ async function seedSettings() {
         title: "Philipsburg-Osceola Mountaineer Basketball",
         description:
           "Official home of Philipsburg-Osceola Mountaineer Basketball — schedule, roster, coaching staff, alumni, and program support.",
-        ogImage: LOGO,
+        ogImage: {
+          path: "/images/og-banner.png",
+          alt: "P-O Mountie Basketball - Elementary, Junior High, Varsity",
+          width: 1672,
+          height: 941,
+        },
       },
       footerText:
         "We are a public-school high school basketball program located in Central Pennsylvania. Home of the Mounties.",

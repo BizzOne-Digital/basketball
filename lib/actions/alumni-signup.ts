@@ -51,7 +51,7 @@ export async function submitAlumniSignup(
   if (!parsed.success) {
     return {
       success: false,
-      error: parsed.error.errors[0]?.message ?? "Invalid form submission.",
+      error: parsed.error.issues[0]?.message ?? "Invalid form submission.",
     };
   }
 

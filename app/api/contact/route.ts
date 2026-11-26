@@ -11,7 +11,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: parsed.error.errors[0]?.message ?? "Invalid submission.",
+          error: parsed.error.issues[0]?.message ?? "Invalid submission.",
         },
         { status: 400 },
       );

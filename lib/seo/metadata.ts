@@ -6,6 +6,9 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
   "https://mountiebasketball.com";
 
+// Site-wide share/poster image (1672x941). Per-page seo.ogImage still overrides it.
+const DEFAULT_OG_IMAGE = "/images/og-banner.png";
+
 interface MetadataDefaults {
   title: string;
   description?: string;
@@ -34,10 +37,7 @@ export function buildMetadataFromSeo(
     settings.tagline ??
     settings.headline;
 
-  const ogImage =
-    resolveImagePath(seo?.ogImage) ||
-    resolveImagePath(settings.defaultSeo?.ogImage) ||
-    resolveImagePath(settings.logo);
+  const ogImage = resolveImagePath(seo?.ogImage) || DEFAULT_OG_IMAGE;
 
   const canonical = defaults.path
     ? `${SITE_URL}${defaults.path.startsWith("/") ? defaults.path : `/${defaults.path}`}`
@@ -56,13 +56,13 @@ export function buildMetadataFromSeo(
       siteName,
       url: canonical,
       type: "website",
-      images: ogImage ? [{ url: ogImage, alt: title }] : undefined,
+      images: [{ url: ogImage, width: 1672, height: 941, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title: buildTitle(title, siteName),
       description: description ?? undefined,
-      images: ogImage ? [ogImage] : undefined,
+      images: [ogImage],
     },
     robots: noIndex ? { index: false, follow: false } : undefined,
   };
